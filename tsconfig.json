@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5", 
+    "module": "esnext", 
+    "moduleResolution": "node", 
+    "strict": true, 
+    "jsx": "react-jsx", 
+    "typeRoots": ["./node_modules/@types", "./src"], 
+    "types": ["react", "react-dom"]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
