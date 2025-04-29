@@ -8,7 +8,7 @@ const Main: React.FC = () => {
 
     useEffect(() => {
         const valueStorage = localStorage.getItem('todoList');
-        console.log(valueStorage);
+        
         if (valueStorage != null && hasMounted.current === false ) {
             const oldTodoList: string[] = JSON.parse(valueStorage);
             hasMounted.current = true;
@@ -39,7 +39,7 @@ const Main: React.FC = () => {
 
     const myListElements = elements.map((el, index) => {
         return (
-            <li key={index} className="list-disc flex flex-row items-center">
+            <li key={index} className="text-white list-disc text-xl flex flex-row items-center">
                 {el}
                 <button className="ml-2 cursor-pointer" onClick={() => {removeElement(index)}}>
                     <X size={15} />
@@ -49,18 +49,17 @@ const Main: React.FC = () => {
     });
 
     return (
-        <div className="px-20 py-5">
-            <div className="flex flex-col items-center">
-                <h1 className="flex items-center flex-row text-2xl py-2"><List className="mr-2" /> Ma todo list</h1>
-                <div className="text-left border border-gray-200 bg-green-200 w-70 rounded-xl p-4">
+        <div className="px-4 sm:px-20 py-5 flex flex-col items-center w-full">
+            <div className="flex flex-col items-center w-full sm:w-auto">
+                <div className="text-left shadow-box-light bg-beige-light w-full sm:w-96 h-96 rounded-t-xl p-4">
                     {myListElements}
+                </div>
+                <div className="w-full flex flex-col sm:flex-row mt-2">
+                    <input className="border h-12 sm:h-auto rounded-b-xl w-full p-2" value={newElements} name="addValue" onChange={event => setNewElements(event.target.value)} title="ajouter à la liste" placeholder="Ajouter un éléments"></input>
+                    <button className="bg-green-dark text-white px-4 py-2 mt-4 sm:mt-0 h-12 sm:h-auto rounded-xl sm:rounded-b-xl sm:ml-2" onClick={addElement}>Ajouter</button>
                 </div>
             </div>
 
-            <div>
-                <input className="border rounded-sm w-60 p-2 mt-2" value={newElements} name="addValue" onChange={event => setNewElements(event.target.value)} title="ajouter à la liste" placeholder="Ajouter un éléments"></input>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded ml-2" onClick={addElement}>Ajouter</button>
-            </div>
         </div>
     )
 }
