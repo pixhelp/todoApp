@@ -61,6 +61,7 @@ const TodoList: React.FC = () => {
         setElements(arrayCheck);
     }
 
+    elements.sort((a, b) => Number(a.done) - Number(b.done));
     const myListElements = elements.map((el, index) => {
         return (
            <TodoItem
