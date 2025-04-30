@@ -1,4 +1,4 @@
-import { X } from 'lucide-react';
+import { X, Trash2 } from 'lucide-react';
 
 interface TodoItemsProps {
     index:number;
@@ -31,12 +31,12 @@ const TodoItem = ({index, showElement, check, remove}: TodoItemsProps) => {
             >
             <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
-        <span className={showElement.done ? "text-green-dark transition-colors text-sm" : "transition-colors text-sm" }>
-            {showElement.text}
-        </span>
-        <button className="ml-2 sm:ml-1 cursor-pointer" onClick={() => {remove(index)}}>
-            <X className="mt-1 absolute right-2 top-1 borde sm:border-0 rounded-full p-0.5 text-green-dark" size={22} />
-        </button>
+            <span className={showElement.done ? "text-green-dark transition-colors text-sm" : "transition-colors text-sm" }>
+                {showElement.text}
+            </span>
+            <button className="ml-2 sm:ml-1 cursor-pointer" onClick={() => {remove(index)}}>
+                <Trash2 className="mt-1 absolute right-2 top-1 borde sm:border-0 rounded-full p-0.5 text-green-dark" size={22} />
+            </button>
         </li>
     )
 }

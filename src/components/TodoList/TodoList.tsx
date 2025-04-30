@@ -6,15 +6,14 @@ import TodoInput from "./TodoInput/TodoInput"
 
 const TodoList: React.FC = () => {
     let hasMounted = useRef(false);
-    const [elements, setElements] = useState<{ text: string; done: boolean }[]>([]);
+    const [elements, setElements] = useState<{ text: string; done: boolean, createdDate: number }[]>([]);
     const [newElements, setNewElements] =  useState('');
-    const [isCheckBoxChecked, setisCheckBoxChecked] = useState(Boolean);
 
     useEffect(() => {
         const valueStorage = localStorage.getItem('todoList');
         
         if (valueStorage != null && hasMounted.current === false ) {
-            const oldTodoList: { text: string; done: boolean }[] = JSON.parse(valueStorage);
+            const oldTodoList: { text: string; done: boolean, createdDate:number }[] = JSON.parse(valueStorage);
             hasMounted.current = true;
             setElements(oldTodoList);
         }
@@ -33,7 +32,9 @@ const TodoList: React.FC = () => {
             const todoElement = {
                 text: newElements,
                 done: false,
+                createdDate: Date.now(),
             }
+
             setElements([...elements, todoElement]);
             setNewElements('');
         }
@@ -42,6 +43,11 @@ const TodoList: React.FC = () => {
     function removeElement(indexArray: number) {
        const filterTodo = elements.filter((_el, index) => indexArray != index);
         setElements(filterTodo);
+    }
+
+    function removeAllElement() {
+       const filterAllElements = [...elements.filter((el) => el.done === false)]
+       setElements(filterAllElements);
     }
 
     function isChecked(event:any) {
@@ -64,28 +70,28 @@ const TodoList: React.FC = () => {
     const sortElements = [...elements.sort((a, b) => Number(a.done) - Number(b.done)) ];
     const myListElements = sortElements.map((el, index) => {
         return (
-           <TodoItem
-           key={index}
-           index={index}
-           showElement={el}
-           check={isChecked}
-           remove={() => removeElement(index)}
-        />
+            <TodoItem
+                key={index}
+                index={index}
+                showElement={el}
+                check={isChecked}
+                remove={() => removeElement(index)}
+            />
         )
     });
 
     return (
         <div className="px-4 sm:px-20 py-5 flex flex-col items-center w-full">
             <div className="flex flex-col items-center w-full xl:w-auto">
-               <TodoColumn
-                listShowElements={myListElements.slice(0,10)}
-               />
+                <TodoColumn
+                    listShowElements={myListElements}
+                />
                 <TodoInput
                     addItemElement={addElement}
                     addNewElement={newElements}
                     creatNewElement={setNewElements}
                     addNewItemsElement={addElement}
-
+                    removeElements={removeAllElement}
                 />
             </div>
         </div>
