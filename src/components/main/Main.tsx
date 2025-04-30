@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { X, List } from 'lucide-react';
+import { X, List, CheckCheck } from 'lucide-react';
+
 
 const Main: React.FC = () => {
     let hasMounted = useRef(false);
-    const [elements, setElements] = useState<string[]>([]);
+    const [elements, setElements] = useState<{ text: string; done: boolean }[]>([]);
     const [newElements, setNewElements] =  useState('');
+    const [isCheckBoxChecked, setisCheckBoxChecked] = useState(Boolean);
 
     useEffect(() => {
         const valueStorage = localStorage.getItem('todoList');
         
         if (valueStorage != null && hasMounted.current === false ) {
-            const oldTodoList: string[] = JSON.parse(valueStorage);
+            const oldTodoList: { text: string; done: boolean }[] = JSON.parse(valueStorage);
             hasMounted.current = true;
             setElements(oldTodoList);
         }
@@ -24,10 +26,13 @@ const Main: React.FC = () => {
         }
     }, [elements]);
 
-
     function addElement() {
         if (newElements.trim() !== '') {
-            setElements([...elements, newElements ]);
+            const todoElement = {
+                text: newElements,
+                done: false,
+            }
+            setElements([...elements, todoElement]);
             setNewElements('');
         }
     }
@@ -37,12 +42,32 @@ const Main: React.FC = () => {
         setElements(filterTodo);
     }
 
+    function isChecked(event:any) {
+        const arrayCheck = elements.map((checkItem, index) => {
+            if (event.target.value == index.toString() && event.target.checked) {
+                checkItem.done = true;
+            } 
+            
+            if (event.target.value == index && !event.target.checked) {
+                checkItem.done = false;
+            }
+            
+            return checkItem;
+        });
+        
+
+        setElements(arrayCheck);
+    }
+
     const myListElements = elements.map((el, index) => {
         return (
-            <li key={index} className="text-white list-disc text-xl flex flex-row items-center">
-                {el}
-                <button className="ml-2 cursor-pointer" onClick={() => {removeElement(index)}}>
-                    <X size={15} />
+            <li key={index} className="text-white relative pl-6 list-disc mb-2 sm:mb-1 text-xl sm:text-md flex flex-row items-center">
+                <input checked={el.done} value={index} onChange={isChecked} type="checkbox" className="left-0 absolute mt-2" />
+                <p className={el.done ? "text-dark-blue" : "" }>
+                    {el.text}
+                </p>
+                <button className="ml-2 sm:ml-1 cursor-pointer" onClick={() => {removeElement(index)}}>
+                    <X className="mt-1.5 borde sm:border-0 rounded-full p-0.5 text-black" size={22} />
                 </button>
             </li>
         )
@@ -51,7 +76,7 @@ const Main: React.FC = () => {
     return (
         <div className="px-4 sm:px-20 py-5 flex flex-col items-center w-full">
             <div className="flex flex-col items-center w-full sm:w-auto">
-                <div className="text-left shadow-box-light bg-beige-light w-full sm:w-96 h-96 rounded-t-xl p-4">
+                <div className="text-left font-playwrite shadow-box-light bg-beige-light w-full sm:w-96 h-96 rounded-t-xl p-4">
                     {myListElements}
                 </div>
                 <div className="w-full flex flex-col sm:flex-row mt-2">
