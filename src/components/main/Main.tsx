@@ -61,13 +61,13 @@ const Main: React.FC = () => {
 
     const myListElements = elements.map((el, index) => {
         return (
-            <li key={index} className="text-white relative pl-6 list-disc mb-2 sm:mb-1 text-xl sm:text-md flex flex-row items-center">
-                <input checked={el.done} value={index} onChange={isChecked} type="checkbox" className="left-0 absolute mt-2" />
+            <li key={index} className="border-b border-green-dark py-2 px-2 text-white relative pl-6 list-disc mb-2 sm:mb-1 text-xl sm:text-md flex flex-row items-center">
+                <input checked={el.done} value={index} onChange={isChecked} type="checkbox" className="mr-2 mt-1" />
                 <p className={el.done ? "text-dark-blue" : "" }>
                     {el.text}
                 </p>
                 <button className="ml-2 sm:ml-1 cursor-pointer" onClick={() => {removeElement(index)}}>
-                    <X className="mt-1.5 borde sm:border-0 rounded-full p-0.5 text-black" size={22} />
+                    <X className="mt-1.5 absolute right-2 top-1 borde sm:border-0 rounded-full p-0.5 text-green-dark" size={22} />
                 </button>
             </li>
         )
@@ -76,11 +76,29 @@ const Main: React.FC = () => {
     return (
         <div className="px-4 sm:px-20 py-5 flex flex-col items-center w-full">
             <div className="flex flex-col items-center w-full sm:w-auto">
-                <div className="text-left font-playwrite shadow-box-light bg-beige-light w-full sm:w-96 h-96 rounded-t-xl p-4">
-                    {myListElements}
-                </div>
+               <div className="flex flex-row">
+                    <div className="px-2 mr-2 text-left font-playwrite shadow-box-light bg-beige-light w-full sm:w-96 m-h-96 pb-4 rounded-t-xl">
+                    {myListElements.slice(0,10)}
+                    </div>
+                    {myListElements.length > 10 && (
+                        <div className="px-2 text-left mr-2 font-playwrite shadow-box-light bg-beige-light w-full sm:w-96 m-h-96 pb-4 rounded-t-xl">
+                            {myListElements.slice(10)}
+                        </div>
+                    )}
+                       {myListElements.length > 20 && (
+                        <div className="px-2 text-left font-playwrite shadow-box-light bg-beige-light w-full sm:w-96 m-h-96 pb-4 rounded-t-xl">
+                            {myListElements.slice(20)}
+                        </div>
+                    )}
+               </div>
                 <div className="w-full flex flex-col sm:flex-row mt-2">
-                    <input className="border h-12 sm:h-auto rounded-b-xl w-full p-2" value={newElements} name="addValue" onChange={event => setNewElements(event.target.value)} title="ajouter à la liste" placeholder="Ajouter un éléments"></input>
+                    <input  
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault(); 
+                                addElement();
+                            }
+                        }} className="border h-12 sm:h-auto rounded-b-xl w-full p-2" value={newElements} name="addValue" onChange={event => setNewElements(event.target.value)} title="ajouter à la liste" placeholder="Ajouter un éléments"></input>
                     <button className="bg-green-dark text-white px-4 py-2 mt-4 sm:mt-0 h-12 sm:h-auto rounded-xl sm:rounded-b-xl sm:ml-2" onClick={addElement}>Ajouter</button>
                 </div>
             </div>
