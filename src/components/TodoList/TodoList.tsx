@@ -45,9 +45,20 @@ const TodoList: React.FC = () => {
        setElements(filterTodo);
     }
     
-    function removeAllElement() {
+    function removeAllElements() {
        const filterAllElements = [...elements.filter((el) => el.done === false)]
        setElements(filterAllElements);
+    }
+
+    function sortOldElements() {
+        const filterOldElements = [...elements.sort((a, b) => a.createdDate - b.createdDate)];
+        console.log(filterOldElements)
+        setElements(filterOldElements);
+    }
+
+    function sortNewsElements() {
+        const filterNewsElements = [...elements.sort((a, b) => b.createdDate - a.createdDate )];
+        setElements(filterNewsElements);
     }
 
     function isChecked(event:any) {
@@ -85,13 +96,15 @@ const TodoList: React.FC = () => {
             <div className="flex flex-col items-center w-full xl:w-auto">
                 <TodoColumn
                     listShowElements={myListElements}
+                    filterOldElements={sortOldElements}
+                    filterNewElements={sortNewsElements}
                 />
                 <TodoInput
                     addItemElement={addElement}
                     addNewElement={newElements}
                     creatNewElement={setNewElements}
                     addNewItemsElement={addElement}
-                    removeElements={removeAllElement}
+                    removeElements={removeAllElements}
                 />
             </div>
         </div>

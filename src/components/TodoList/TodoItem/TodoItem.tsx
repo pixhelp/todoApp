@@ -20,17 +20,17 @@ const TodoItem = ({index, showElement, check, remove}: TodoItemsProps) => {
     let unit: "second" | "minute" | "hour" | "day";
     
     if (diffInSeconds < 60) {
-      value = -diffInSeconds;
-      unit = "second";
+        value = -diffInSeconds;
+        unit = "second";
     } else if (diffInSeconds < 3600) {
-      value = -Math.floor(diffInSeconds / 60);
-      unit = "minute";
+        value = -Math.floor(diffInSeconds / 60);
+        unit = "minute";
     } else if (diffInSeconds < 86400) {
-      value = -Math.floor(diffInSeconds / 3600);
-      unit = "hour";
+        value = -Math.floor(diffInSeconds / 3600);
+        unit = "hour";
     } else {
-      value = -Math.floor(diffInSeconds / 86400);
-      unit = "day";
+        value = -Math.floor(diffInSeconds / 86400);
+        unit = "day";
     }
     
     const formatter = new Intl.RelativeTimeFormat("fr", { numeric: "auto" });
