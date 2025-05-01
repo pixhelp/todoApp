@@ -87,7 +87,6 @@ const TodoList: React.FC = () => {
                 showElement={el}
                 check={isChecked}
                 remove={() => removeElement(index)}
-                isSortingElements={isSorting}
             />
         )
     });
