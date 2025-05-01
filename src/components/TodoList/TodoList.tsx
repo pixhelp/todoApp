@@ -8,6 +8,7 @@ const TodoList: React.FC = () => {
     let hasMounted = useRef(false);
     const [elements, setElements] = useState<{ text: string; done: boolean, createdDate: number }[]>([]);
     const [newElements, setNewElements] =  useState('');
+    const [isSorting, setIsSorting] = useState(false);
 
     useEffect(() => {
         const valueStorage = localStorage.getItem('todoList');
@@ -52,7 +53,6 @@ const TodoList: React.FC = () => {
 
     function sortOldElements() {
         const filterOldElements = [...elements.sort((a, b) => a.createdDate - b.createdDate)];
-        console.log(filterOldElements)
         setElements(filterOldElements);
     }
 
@@ -87,6 +87,7 @@ const TodoList: React.FC = () => {
                 showElement={el}
                 check={isChecked}
                 remove={() => removeElement(index)}
+                isSortingElements={isSorting}
             />
         )
     });
