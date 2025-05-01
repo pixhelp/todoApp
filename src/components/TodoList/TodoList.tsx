@@ -42,9 +42,9 @@ const TodoList: React.FC = () => {
 
     function removeElement(indexArray: number) {
        const filterTodo = elements.filter((_el, index) => indexArray != index);
-        setElements(filterTodo);
+       setElements(filterTodo);
     }
-
+    
     function removeAllElement() {
        const filterAllElements = [...elements.filter((el) => el.done === false)]
        setElements(filterAllElements);

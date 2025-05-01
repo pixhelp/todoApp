@@ -12,12 +12,16 @@ module.exports = {
       },
       fontFamily: {
         playwrite: ['Playwrite', 'sans-serif'],
+        monserrat_medium: ['Montserra-medium','sans-serif'],
       },
       colors: {
         'green-light': '#A0C878',
         'green-dark' : '#626F47',
         'beige-light': '#F0BB78',
         'dark-blue': '#077A7D',
+      },
+      fontSize: {
+        '2xs':'8px'
       },
     },
   },
