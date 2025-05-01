@@ -19,9 +19,9 @@ const TodoColumn = ({listShowElements, filterOldElements, filterNewElements}: To
                 Récents 
             </button>
             <div className="flex flex-col xl:flex-row w-full xl:w-auto">
-                <div className="px-2 text-left font-playwrite shadow-box-light bg-beige-light w-full xl:w-96 m-h-96 pb-6">
+                <div className="px-2 pt-2 text-left font-playwrite shadow-box-light bg-beige-light w-full xl:w-96 m-h-96">
                     {listShowElements.length === 0 && (
-                        <p className="text-center mt-5 text-white">Commencez votre liste</p>
+                        <p className="text-center text-xl pb-6 pt-4 text-white">Commencez votre liste</p>
                     )}  
                     {listShowElements}
                 </div>

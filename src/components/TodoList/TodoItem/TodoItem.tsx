@@ -1,5 +1,4 @@
-import { X, Trash2 } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { Trash2, Clock } from 'lucide-react';
 
 interface TodoItemsProps {
     index:number;
@@ -10,9 +9,10 @@ interface TodoItemsProps {
     }
     check:(event: React.ChangeEvent<HTMLInputElement>) => void;
     remove:(index: number) => void;
+    totalElements: number;
 }
 
-const TodoItem = ({index, showElement, check, remove}: TodoItemsProps) => {
+const TodoItem = ({index, showElement, check, remove,totalElements}: TodoItemsProps) => {
     const createdDate = showElement.createdDate; 
     const now = Date.now();
     const diffInSeconds = Math.floor((now - createdDate) / 1000);
@@ -38,8 +38,8 @@ const TodoItem = ({index, showElement, check, remove}: TodoItemsProps) => {
     const relativeDate = formatter.format(value, unit); 
 
     return (
-        <div className='transition-all border-b border-green-dark mb-2 pb- w-full'>
-            <div key={index} className="pt-2 px-2 text-white relative list-disc text-xl sm:text-md flex flex-row items-center">
+        <div className={index !== totalElements - 1 ? 'border-b border-green-dark mb-2 w-full' : ''}>
+            <div key={index} className="px-2 text-white relative list-disc text-xl sm:text-md flex flex-row items-center">
                 <input checked={showElement.done} value={index} onChange={check} type="checkbox" 
                 className="
                     peer cursor-pointer relative appearance-none shrink-0 w-3.5 h-3.5 border-dark-blue rounded-sm mt-1 bg-white
@@ -62,10 +62,10 @@ const TodoItem = ({index, showElement, check, remove}: TodoItemsProps) => {
                     {showElement.text}
                 </span>
                 <button className="ml-2 sm:ml-1 cursor-pointer" onClick={() => {remove(index)}}>
-                    <Trash2 className="mt-1 absolute right-2 top-3 borde sm:border-0 rounded-full p-0.5 text-white transition-all hover:text-green-dark" size={22} />
+                    <Trash2 className="mt-1 absolute right-2 top-2.5 borde sm:border-0 rounded-full p-0.5 text-white transition-all hover:text-green-dark" size={22} />
                 </button>
             </div>
-            <span className='pl-2 text-2xs font-monserrat_medium'>Créé {relativeDate}</span>
+            <span className='py-2 pl-2 text-2xs font-monserrat_medium flex flex-row items-center'><Clock className='mr-1' size={10} /> Créé {relativeDate}</span>
         </div>
     )
 }
