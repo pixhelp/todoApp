@@ -6,7 +6,7 @@ import TodoInput from "./TodoInput/TodoInput"
 
 const TodoList: React.FC = () => {
     let hasMounted = useRef(false);
-    const [elements, setElements] = useState<{ text: string; done: boolean, createdDate: number }[]>([]);
+    const [elements, setElements] = useState<{ text: string; done: boolean, crucial: boolean, createdDate: number }[]>([]);
     const [newElements, setNewElements] =  useState('');
     const [isSorting, setIsSorting] = useState(false);
 
@@ -14,7 +14,7 @@ const TodoList: React.FC = () => {
         const valueStorage = localStorage.getItem('todoList');
         
         if (valueStorage != null && hasMounted.current === false ) {
-            const oldTodoList: { text: string; done: boolean, createdDate:number }[] = JSON.parse(valueStorage);
+            const oldTodoList: { text: string; done: boolean, crucial: boolean, createdDate:number }[] = JSON.parse(valueStorage);
             hasMounted.current = true;
             setElements(oldTodoList);
         }
@@ -33,6 +33,7 @@ const TodoList: React.FC = () => {
             const todoElement = {
                 text: newElements,
                 done: false,
+                crucial: false,
                 createdDate: Date.now(),
             }
 
@@ -59,6 +60,19 @@ const TodoList: React.FC = () => {
     function sortNewsElements() {
         const filterNewsElements = [...elements.sort((a, b) => b.createdDate - a.createdDate )];
         setElements(filterNewsElements);
+    }
+
+    function crucialElments(indexElement:number) {
+        const crucialElement = [...elements.map((el, index) => {
+            if (index === indexElement && el.crucial === false) {
+                return {...el, crucial: true}
+            } else if (index === indexElement && el.crucial === true) {
+                return {...el, crucial: false}
+            } else {
+                return el;
+            }
+        })]
+        setElements(crucialElement);
     }
 
     function isChecked(event:any) {
@@ -88,6 +102,7 @@ const TodoList: React.FC = () => {
                 check={isChecked}
                 remove={() => removeElement(index)}
                 totalElements={elements.length}
+                changeCrucialElements={crucialElments}
             />
         )
     });

@@ -1,7 +1,7 @@
 
 interface TodoInputProps {
-    addItemElement: (text: string, done?: boolean, createdDate?: number) => void;
-    addNewItemsElement: (text: string, done?: boolean, createdDate?:number) => void;
+    addItemElement: (text: string, done?: boolean, crucial?: boolean, createdDate?: number) => void;
+    addNewItemsElement: (text: string, done?: boolean, crucial?: boolean, createdDate?:number) => void;
     creatNewElement: (value: string) => void;
     addNewElement: string;
     removeElements: () => void;
