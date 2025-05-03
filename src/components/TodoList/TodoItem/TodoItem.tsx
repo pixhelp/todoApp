@@ -69,7 +69,7 @@ const TodoItem = ({index, showElement, check, remove, totalElements, changeCruci
                 <div className='flex flex-row items-center absolute right-0 top-2'>
                     <div className='relative'>
                         <input checked={showElement.crucial} value={index} onChange={() => changeCrucialElements(index)} className='hidden' type="checkbox" />
-                        <span onClick={() => changeCrucialElements(index)} className={`cursor-pointer ${showElement.crucial ? 'text-red-800' : 'text-white'}`}>
+                        <span onClick={() => {changeCrucialElements(index)}} className={`cursor-pointer ${showElement.crucial ? 'text-red-800' : 'text-white'}`}>
                             <ClockAlert />
                         </span>
                     </div>

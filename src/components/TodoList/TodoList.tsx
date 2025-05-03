@@ -53,13 +53,19 @@ const TodoList: React.FC = () => {
     }
 
     function sortOldElements() {
-        const filterOldElements = [...elements.sort((a, b) => a.createdDate - b.createdDate)];
+        const filterOldElements = [...elements.sort((taskA, taskB) => taskA.createdDate - taskB.createdDate)];
         setElements(filterOldElements);
     }
 
     function sortNewsElements() {
-        const filterNewsElements = [...elements.sort((a, b) => b.createdDate - a.createdDate )];
+        const filterNewsElements = [...elements.sort((taskA, taskB) => taskB.createdDate - taskA.createdDate)];
         setElements(filterNewsElements);
+    }
+
+    function sortCrucialElements() {
+        const filterCrucialElements = [...elements.sort((taskA, taskB) => Number(taskB.crucial) - Number(taskA.crucial))];
+        console.log(filterCrucialElements)
+        setElements(filterCrucialElements);
     }
 
     function crucialElments(indexElement:number) {
@@ -74,6 +80,7 @@ const TodoList: React.FC = () => {
         })]
         setElements(crucialElement);
     }
+
 
     function isChecked(event:any) {
         const arrayCheck = elements.map((checkItem, index) => {
@@ -114,6 +121,7 @@ const TodoList: React.FC = () => {
                     listShowElements={myListElements}
                     filterOldElements={sortOldElements}
                     filterNewElements={sortNewsElements}
+                    filterCrucialElement={sortCrucialElements}
                 />
                 <TodoInput
                     addItemElement={addElement}
