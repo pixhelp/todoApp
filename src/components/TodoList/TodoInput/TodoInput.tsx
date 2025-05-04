@@ -9,9 +9,9 @@ interface TodoInputProps {
 
 const TodoInput = ({addItemElement,addNewItemsElement, addNewElement, creatNewElement, removeElements}:TodoInputProps) => {
     return (
-        <div className="w-full sticky top-0 py-4 xl:py-0 bottom-0 xl:relative bg-white">
-            <div className="w-full xl:mt-4 sm:p-0 flex flex-col sm:flex-row">
-                <input  
+        <div className="w-full sticky flex flex-col top-0 lg:py-0 bottom-0 px-4 mx-auto sm:px-20 py-6 lg:px-0 lg:items-center lg:w-1/2 lg:relative bg-white">
+            <div className="lg:mt-4 sm:p-0 flex flex-row lg:w-full lg:mb-4">
+                <input 
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             e.preventDefault(); 
@@ -19,10 +19,10 @@ const TodoInput = ({addItemElement,addNewItemsElement, addNewElement, creatNewEl
                                 addItemElement(e.target.value, false);
                             }
                         }
-                    }} className="border h-12 sm:h-auto rounded-t-xl xl:rounded-t-none rounded-b-xl w-full p-2" value={addNewElement} name="addValue" onChange={event => creatNewElement(event.target.value)} title="ajouter à la liste" placeholder="Ajouter un éléments"></input>
-                <button className="bg-green-dark text-white px-4 py-2 mt-4 sm:mt-0 h-12 sm:h-auto rounded-t-xl rounded-b-xl sm:rounded-t-none sm:rounded-b-xl sm:ml-2" onClick={() => addItemElement(addNewElement, false)}>Ajouter</button>
+                    }} className="border w-full flex-1 h-12 sm:h-auto rounded-t-xl lg:rounded-t-none rounded-b-xl p-2" value={addNewElement} name="addValue" onChange={event => creatNewElement(event.target.value)} title="ajouter à la liste" placeholder="Ajouter un éléments"></input>
+                <button className="bg-green-dark text-white px-4 py-2 ml-2 h-12 lg:h-auto rounded-t-xl rounded-b-xl lg:rounded-t-none lg:rounded-b-xl sm:ml-2" onClick={() => addItemElement(addNewElement, false)}>Ajouter</button>
             </div>
-            <button className="text-xs w-full text-gray-700" onClick={removeElements}>Supprimer toutes les taches faites</button>
+            <button className="text-xs w-full mt-4 sm:mt-0 text-gray-700 lg:mb-4" onClick={removeElements}>Supprimer toutes les taches faites</button>
         </div>
     )
 }

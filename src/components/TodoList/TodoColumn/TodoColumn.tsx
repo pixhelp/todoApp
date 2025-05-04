@@ -23,13 +23,23 @@ const TodoColumn = ({listShowElements, filterOldElements, filterNewElements, fil
             onClick={filterCrucialElement}>
                 Urgents 
             </button>
-            <div className="flex flex-col xl:flex-row w-full xl:w-auto">
-                <div className="px-2 pt-2 text-left font-playwrite shadow-box-light bg-white w-full xl:w-96 m-h-96">
-                    {listShowElements.length === 0 && (
-                        <p className="text-center text-xl pb-6 pt-4 text-black">Commencez votre liste</p>
-                    )}  
-                    {listShowElements}
+            <div className="flex w-full flex-col lg:flex-row">
+                <div className="flex flex-1 flex-col lg:flex-row w-full lg:w-auto">
+                    <div className="flex-1 text-left font-playwrite shadow-box-light bg-white w-full lg:w-96 m-h-96">
+                        {listShowElements.length === 0 && (
+                            <p className="text-center text-xl pb-6 pt-4 text-black">Commencez votre liste</p>
+                        )}  
+                        {listShowElements.slice(0,10)}
+                    </div>
                 </div>
+
+                {listShowElements.length > 10 && (
+                    <div className="flex flex-1 flex-col lg:ml-4 lg:flex-row w-full lg:w-auto">
+                        <div className="flex-1 text-left font-playwrite shadow-box-light bg-white w-full lg:w-96 m-h-96">
+                            {listShowElements.slice(10)}
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
 

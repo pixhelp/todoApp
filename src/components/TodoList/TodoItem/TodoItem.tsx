@@ -42,9 +42,10 @@ const TodoItem = ({index, showElement, check, remove, totalElements, changeCruci
 
     return (
         <div className={
-                "w-full p-1.5 " +
+                "w-full p-2 " +
                 (index !== totalElements - 1 ? "border-b border-green-dark " : "") +
-                (showElement.crucial ? "bg-beige-light" : "")}>
+                (showElement.crucial ? "bg-beige-light" : "") +
+                (showElement.done && !showElement.crucial ? "bg-green-light" : "")}>
             <div key={index} className="px-2 text-black relative list-disc text-xl sm:text-md flex flex-row justify-between items-center">
                 <div className='relative'>
                     <input checked={showElement.done} value={index} onChange={check} type="checkbox" 
@@ -70,15 +71,18 @@ const TodoItem = ({index, showElement, check, remove, totalElements, changeCruci
                     </span>
                 </div>
 
-                <div className='flex flex-row items-center absolute right-0 top-2'>
-                    <div className='relative'>
-                        <input checked={showElement.crucial} value={index} onChange={(event) => sortCrucialElementFilter(event)} className='' type="checkbox" />
-                        {/*<span onClick={() => {sortCrucialElement(event)}} className={`cursor-pointer ${showElement.crucial ? 'text-mytodo-red-800' : 'text-black hover:text-green-dark'}`}>
-                            <ClockAlert />
-                        </span>*/}
+                <div className='flex flex-row items-center absolute right-0 top-3.5'>
+                    <div className='relative group'>
+                        <input checked={showElement.crucial} value={index} onChange={(event) => sortCrucialElementFilter(event)} type="checkbox" className="border
+                        peer cursor-pointer relative appearance-none z-10  shrink-0 w-5 h-5
+                        focus:outline-none focus:ring-offset-0 focus-visible:outline-none
+                        border-none"/>
+                        <span className={`cursor-pointer absolute left-0 top-1 transition-all text-black group-hover:text-mytodo-red-800`}>
+                            <ClockAlert size={20} />
+                        </span>
                     </div>
-                    <button className="ml-2 sm:ml-1 cursor-pointer" onClick={() => {remove(index)}}>
-                        <Trash2 className="sm:border-0 rounded-full p-0.5 text-black transition-all hover:text-green-dark" size={22} />
+                    <button className="ml-2 sm:ml-1 cursor-pointe" onClick={() => {remove(index)}}>
+                        <Trash2 className="sm:border-0 rounded-full hover:text-green-dark transition-all p-0.5 text-black" size={22} />
                     </button>
                 </div>
             </div>
