@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        'box-light': '0px 10px 15px -3px rgba(0,0,0,0.1)',
+        'box-light': '0px 0px 10px -2px rgba(0,0,0,0.1)',
       },
       fontFamily: {
         playwrite: ['Playwrite', 'sans-serif'],
@@ -19,7 +19,9 @@ module.exports = {
         'green-dark' : '#626F47',
         'beige-light': '#F0BB78',
         'dark-blue': '#077A7D',
-        'brown': '#BF9264'
+        'brown': '#BF9264',
+        'dark-orange': '#FA812F',
+        'mytodo-red-800': '#A62C2C',
       },
       fontSize: {
         '2xs':'8px'

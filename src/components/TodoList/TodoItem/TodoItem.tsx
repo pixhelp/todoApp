@@ -12,9 +12,10 @@ interface TodoItemsProps {
     remove:(index: number) => void;
     totalElements: number;
     changeCrucialElements: (indexElement: number) => void;
+    sortCrucialElementFilter: (event:React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TodoItem = ({index, showElement, check, remove, totalElements, changeCrucialElements}: TodoItemsProps) => {
+const TodoItem = ({index, showElement, check, remove, totalElements, changeCrucialElements, sortCrucialElementFilter}: TodoItemsProps) => {
     const createdDate = showElement.createdDate; 
     const now = Date.now();
     const diffInSeconds = Math.floor((now - createdDate) / 1000);
@@ -40,11 +41,14 @@ const TodoItem = ({index, showElement, check, remove, totalElements, changeCruci
     const relativeDate = formatter.format(value, unit); 
 
     return (
-        <div className={index !== totalElements - 1 ? 'border-b border-green-dark mb-2 w-full' : ''}>
-            <div key={index} className="px-2 text-white relative list-disc text-xl sm:text-md flex flex-row justify-between items-center">
+        <div className={
+                "w-full p-1.5 " +
+                (index !== totalElements - 1 ? "border-b border-green-dark " : "") +
+                (showElement.crucial ? "bg-beige-light" : "")}>
+            <div key={index} className="px-2 text-black relative list-disc text-xl sm:text-md flex flex-row justify-between items-center">
                 <div className='relative'>
                     <input checked={showElement.done} value={index} onChange={check} type="checkbox" 
-                    className="
+                    className="border
                         peer cursor-pointer relative appearance-none shrink-0 w-3.5 h-3.5 border-dark-blue rounded-sm mt-1 bg-white
                         focus:outline-none focus:ring-offset-0 focus-visible:outline-none focus:ring-1 focus:ring-blue-100
                         checked:bg-green-dark mr-2
@@ -68,13 +72,13 @@ const TodoItem = ({index, showElement, check, remove, totalElements, changeCruci
 
                 <div className='flex flex-row items-center absolute right-0 top-2'>
                     <div className='relative'>
-                        <input checked={showElement.crucial} value={index} onChange={() => changeCrucialElements(index)} className='hidden' type="checkbox" />
-                        <span onClick={() => {changeCrucialElements(index)}} className={`cursor-pointer ${showElement.crucial ? 'text-red-800' : 'text-white'}`}>
+                        <input checked={showElement.crucial} value={index} onChange={(event) => sortCrucialElementFilter(event)} className='' type="checkbox" />
+                        {/*<span onClick={() => {sortCrucialElement(event)}} className={`cursor-pointer ${showElement.crucial ? 'text-mytodo-red-800' : 'text-black hover:text-green-dark'}`}>
                             <ClockAlert />
-                        </span>
+                        </span>*/}
                     </div>
                     <button className="ml-2 sm:ml-1 cursor-pointer" onClick={() => {remove(index)}}>
-                        <Trash2 className="sm:border-0 rounded-full p-0.5 text-white transition-all hover:text-green-dark" size={22} />
+                        <Trash2 className="sm:border-0 rounded-full p-0.5 text-black transition-all hover:text-green-dark" size={22} />
                     </button>
                 </div>
             </div>

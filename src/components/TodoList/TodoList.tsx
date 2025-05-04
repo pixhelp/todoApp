@@ -64,9 +64,37 @@ const TodoList: React.FC = () => {
 
     function sortCrucialElements() {
         const filterCrucialElements = [...elements.sort((taskA, taskB) => Number(taskB.crucial) - Number(taskA.crucial))];
-        console.log(filterCrucialElements)
         setElements(filterCrucialElements);
     }
+
+    function sortCrucialElement(event:any) {
+        const findTargetCrucialElement = elements.find((el, index) => event.target.value == index.toString());
+        const cloneCrucialElement = {
+            text: findTargetCrucialElement?.text || '',
+            done: findTargetCrucialElement?.done || false,
+            crucial: findTargetCrucialElement?.crucial || false,
+            createdDate: findTargetCrucialElement?.createdDate || Date.now(),
+        };
+        
+        if (cloneCrucialElement.crucial === true) {
+            cloneCrucialElement.crucial = false;
+        } else if (cloneCrucialElement.crucial === false) {
+            cloneCrucialElement.crucial = true;
+        }
+
+        const normalsElementsFilter = elements.filter((el,index) => (event.target.value != index.toString()));
+
+        if (cloneCrucialElement.crucial === true) {
+            normalsElementsFilter.unshift(cloneCrucialElement);
+        } else if (cloneCrucialElement.crucial === false) {
+            normalsElementsFilter.push(cloneCrucialElement);
+            normalsElementsFilter.sort((dateA, dateB) => dateA.createdDate - dateB.createdDate);
+        }
+        
+        const finalArray = [...normalsElementsFilter];
+
+        setElements(finalArray);
+    }        
 
     function crucialElments(indexElement:number) {
         const crucialElement = [...elements.map((el, index) => {
@@ -77,13 +105,14 @@ const TodoList: React.FC = () => {
             } else {
                 return el;
             }
-        })]
+        })];
+
         setElements(crucialElement);
     }
 
 
     function isChecked(event:any) {
-        const arrayCheck = elements.map((checkItem, index) => {
+        const elemmentsCheck = elements.map((checkItem, index) => {
             if (event.target.value == index.toString() && event.target.checked) {
                 checkItem.done = true;
             } 
@@ -96,7 +125,7 @@ const TodoList: React.FC = () => {
         });
         
 
-        setElements(arrayCheck);
+        setElements(elemmentsCheck);
     }
 
     const sortElements = [...elements.sort((a, b) => Number(a.done) - Number(b.done)) ];
@@ -110,6 +139,7 @@ const TodoList: React.FC = () => {
                 remove={() => removeElement(index)}
                 totalElements={elements.length}
                 changeCrucialElements={crucialElments}
+                sortCrucialElementFilter={sortCrucialElement}
             />
         )
     });
