@@ -157,7 +157,7 @@ const TodoList: React.FC = () => {
     });
 
     return (
-        <>
+        <div>
             <div className="px-4 sm:px-20 py-5 flex flex-col items-center w-full">
                 <div className={"flex flex-col items-center w-full "
                     + ((elements.length > 10 ? 'xl:w-auto' : '') + (elements.length <= 10 ? 'w-1/2' : '')) }>
@@ -176,7 +176,7 @@ const TodoList: React.FC = () => {
                 addNewItemsElement={addElement}
                 removeElements={removeAllElements}
                 />
-        </>
+        </div>
     )
 }
 

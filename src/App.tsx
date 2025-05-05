@@ -32,7 +32,7 @@ function App() {
 }
 
   return (
-    <div className='overflow-hidden w-full'>
+    <div>
       <Header
         mobileMenuShowHide={mobileMenuToggle}
         />
