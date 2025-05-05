@@ -24,6 +24,7 @@ module.exports = {
         'brown': '#BF9264',
         'dark-orange': '#FA812F',
         'mytodo-red-800': '#A62C2C',
+        'light-gray': '#FBFBFB',
       },
       fontSize: {
         '2xs':'8px'
