@@ -43,7 +43,7 @@ const TodoItem = ({index, showElement, check, remove, totalElements, changeCruci
     return (
         <div className={
                 "w-full p-2 " +
-                (index !== totalElements - 1 ? "border-b border-green-dark " : "") +
+                (index !== totalElements - 1 ? "border-b border-gray-400 " : "") +
                 (showElement.crucial && !showElement.done ? "bg-beige-light " : "") +
                 (showElement.done ? "bg-green-light " : "")}>
             <div key={index} className="px-2 text-black relative list-disc text-xl sm:text-md flex flex-row justify-between items-center">
@@ -66,7 +66,7 @@ const TodoItem = ({index, showElement, check, remove, totalElements, changeCruci
                     >
                     <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
-                    <span className={showElement.done ? "text-green-dark transition-colors text-sm" : "transition-colors text-sm" }>
+                    <span className={showElement.done ? "text-green-dark transition-colors text-sm" : "transition-colors text-sm text-gray-800" }>
                         {showElement.text}
                     </span>
                 </div>
@@ -82,7 +82,7 @@ const TodoItem = ({index, showElement, check, remove, totalElements, changeCruci
                         </span>
                     </div>
                     <button className="ml-2 sm:ml-1 cursor-pointe" onClick={() => {remove(index)}}>
-                        <Trash2 className="sm:border-0 rounded-full hover:text-green-dark transition-all p-0.5 text-black" size={22} />
+                        <Trash2 className="sm:border-0 rounded-full hover:text-green-dark transition-all p-0.5 text-gray-800" size={22} />
                     </button>
                 </div>
             </div>

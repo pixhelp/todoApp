@@ -18,6 +18,7 @@ module.exports = {
         'green-light': '#A0C878',
         'green-dark' : '#626F47',
         'beige-light': '#F0BB78',
+        'beige-hyper-light': '#F5ECD5',
         'dark-blue': '#077A7D',
         'brown': '#BF9264',
         'dark-orange': '#FA812F',
