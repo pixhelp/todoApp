@@ -19,7 +19,7 @@ const TodoColumn = ({listShowElements, filterOldElements, filterNewElements, fil
             onClick={filterNewElements}>
                 Récents 
             </button>
-            <button className="bg-green-dark ml-4 cursor-pointer hover:bg-brown text-white px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
+            <button className="bg-beige-light ml-4 cursor-pointer hover:bg-brown text-white px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
             onClick={filterCrucialElement}>
                 Urgents 
             </button>
