@@ -1,20 +1,30 @@
-import { Link } from "react-router-dom";
+import MenuLink from "../MenuLink/MenuLink"
 
 interface MobileMenuToggleProps {
-    isMenuVisible:boolean;
+    isMenuVisible: boolean;
+    closeMenuMobile: () => void;
 }
 
 
-const MobileMenu = ({isMenuVisible}:MobileMenuToggleProps) => {
+const MobileMenu = ({isMenuVisible, closeMenuMobile}:MobileMenuToggleProps) => {
     return (
         <>
         <div className={
                 "h-full z-10 w-full duration-200 ease-in text-gray-800 transition-all bg-light-gray absolute " +
                 (isMenuVisible ? "left-0" : "left-96 opacity-0 w-0 overflow-hidden")}>
             <div className="flex text-gray-800 flex-col items-center justify-center">
-                <Link className="w-full text-center hover:bg-beige-light p-4 cursor-pointer" to={"/My-todo-list"}>Liste de taches</Link>
-                <Link className="w-full text-center hover:bg-beige-light p-4 cursor-pointer" to={"/Historique"}>Historique</Link>
-                <Link className="w-full text-center hover:bg-beige-light p-4 cursor-pointer" to={"/Archives"} >Archivées</Link>
+                <MenuLink 
+                    closeMenuMobile={closeMenuMobile}
+                    LinkMenu="/my-todo-list"
+                    Text="Liste de taches"/>
+                 <MenuLink 
+                    closeMenuMobile={closeMenuMobile}
+                    LinkMenu="/Historique"
+                    Text="Historique" />
+                 <MenuLink 
+                    closeMenuMobile={closeMenuMobile}
+                    LinkMenu=""
+                    Text="Archivées" />
             </div>
         </div>
         </>

@@ -26,13 +26,19 @@ function App() {
     }
   }
 
+  function closeMenu() {
+    console.log('coucou')
+    setIsMobileMenuVisible(false)
+}
+
   return (
     <div className='overflow-hidden w-full'>
       <Header
         mobileMenuShowHide={mobileMenuToggle}
-      />
+        />
       <Menu/>
       <MobileMenu
+        closeMenuMobile={closeMenu}
         isMenuVisible={isMobileMenuVisible}
       />
       <Main/>     
