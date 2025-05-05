@@ -20,6 +20,7 @@ module.exports = {
         'beige-light': '#F0BB78',
         'beige-hyper-light': '#F5ECD5',
         'dark-blue': '#077A7D',
+        'dark-blue-light': '#27667B',
         'brown': '#BF9264',
         'dark-orange': '#FA812F',
         'mytodo-red-800': '#A62C2C',

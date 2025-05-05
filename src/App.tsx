@@ -1,6 +1,6 @@
 import './App.css'
 import Header from './components/Header/Header';
-import Nav from "./components/Nav/Nav";
+import Menu from "./components/Menu/Menu";
 import Main from './components/Main/Main';
 import Footer from './components/Footer/Footer';
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       <Header/>
-      <Nav/>
+      <Menu/>
       <Main/>     
       <Footer/>
     </div>

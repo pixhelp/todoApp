@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-const Nav = () => {
+const Menu = () => {
     return(
-        <div className="pt-1 h-12 bg-beige-hyper-light">
+        <div className="hidden lg:block pt-1 h-12 bg-beige-hyper-light shadow-box-light">
             <div className="flex text-gray-800 flex-row w-1/2 items-center justify-center">
                 <Link className="hover:border-gray-400 hover:border-b p-2 cursor-pointer" to={"/My-todo-list"}>Liste de taches</Link>
                 <Link className="hover:border-gray-400 hover:border-b p-2 cursor-pointer" to={"/Historique"}>Historique</Link>
@@ -12,4 +12,4 @@ const Nav = () => {
     )
 } 
 
-export default Nav;
+export default Menu;

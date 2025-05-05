@@ -9,7 +9,6 @@ const TodoList: React.FC = () => {
     let hasMounted = useRef(false);
     const [elements, setElements] = useState<{ text: string; done: boolean, crucial: boolean, createdDate: number }[]>([]);
     const [newElements, setNewElements] =  useState('');
-    const [isSorting, setIsSorting] = useState(false);
 
     useEffect(() => {
         const valueStorage = localStorage.getItem('todoList');
