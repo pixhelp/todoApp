@@ -2,6 +2,7 @@ import { useState, useEffect,useRef } from "react";
 import TodoColumn from "./TodoColumn/TodoColumn";
 import TodoItem from "./TodoItem/TodoItem";
 import TodoInput from "./TodoInput/TodoInput"
+import { CheckIcon } from "lucide-react";
 
 
 const TodoList: React.FC = () => {
@@ -86,14 +87,21 @@ const TodoList: React.FC = () => {
 
         if (cloneCrucialElement.crucial === true) {
             normalsElementsFilter.unshift(cloneCrucialElement);
+            const finalArray = [...normalsElementsFilter];
+            setElements(finalArray);
+
         } else if (cloneCrucialElement.crucial === false) {
             normalsElementsFilter.push(cloneCrucialElement);
-            normalsElementsFilter.sort((dateA, dateB) => dateA.createdDate - dateB.createdDate);
+
+            const elementsCrucialFilter = normalsElementsFilter.filter((el,index) => el.crucial);
+            const elementsNoCrucialFilter = normalsElementsFilter.filter((el,index) => !el.crucial);
+            elementsNoCrucialFilter.sort((dateA, dateB) => dateA.createdDate - dateB.createdDate);
+            const finalElementsFilter = elementsCrucialFilter.concat(elementsNoCrucialFilter)
+            const finalArray = [...finalElementsFilter];
+            setElements(finalArray);
         }
         
-        const finalArray = [...normalsElementsFilter];
 
-        setElements(finalArray);
     }        
 
     function crucialElments(indexElement:number) {
@@ -121,11 +129,16 @@ const TodoList: React.FC = () => {
                 checkItem.done = false;
             }
             
+            
             return checkItem;
         });
         
-        elemmentsCheck.sort((checkA, checkB) => (checkA.createdDate - checkB.createdDate));
-        setElements(elemmentsCheck);
+        const elementsCrucial = elemmentsCheck.filter((el,index) => (el.crucial));
+        const elementsNoCrucial = elemmentsCheck.filter((el,index) => (!el.crucial));
+        elementsNoCrucial.sort((checkA, checkB) => (checkA.createdDate - checkB.createdDate));
+        const elementsFilter = elementsCrucial.concat(elementsNoCrucial);
+
+        setElements(elementsFilter);
     }
 
     const sortElements = [...elements.sort((a, b) => Number(a.done) - Number(b.done)) ];
