@@ -13,8 +13,11 @@ interface TodoContextProps {
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
     filterDoneOnly: boolean;
     setFilterDoneOnly: React.Dispatch<React.SetStateAction<boolean>>;
-    filerCrucialOnly:boolean;
-    setFilerCrucialOnly: React.Dispatch<React.SetStateAction<boolean>>;
+    filterCrucialOnly:boolean;
+    setFilterCrucialOnly: React.Dispatch<React.SetStateAction<boolean>>;
+    toogleCrucialOnly: () => void;
+    toggleDoneOnly: () => void;
+
 }
 
 const TodoContext = createContext<TodoContextProps | undefined>(undefined);
@@ -22,7 +25,21 @@ const TodoContext = createContext<TodoContextProps | undefined>(undefined);
 export const TodoProvider = ({ children }: { children: ReactNode }) => {
     const [todos, setTodos] = useState<Todo[]>([]);
     const [filterDoneOnly, setFilterDoneOnly] = useState(false);
-    const [filerCrucialOnly, setFilerCrucialOnly] = useState(false);
+    const [filterCrucialOnly, setFilterCrucialOnly] = useState(false);
+
+    const toggleDoneOnly = () =>(
+        setFilterDoneOnly((prev) => {
+            if (!prev) setFilterCrucialOnly(false);
+            return !prev;
+        })
+    ) 
+
+    const toogleCrucialOnly = () => {
+        setFilterCrucialOnly((prev) => {
+            if (!prev) setFilterDoneOnly(false);
+            return !prev;
+        })
+    }
 
     useEffect(() => {
         const saved = localStorage.getItem("todoList");
@@ -36,7 +53,7 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     }, [todos]);
 
     return (
-        <TodoContext.Provider value={{ todos, setTodos, filterDoneOnly, setFilterDoneOnly, filerCrucialOnly, setFilerCrucialOnly }}>
+        <TodoContext.Provider value={{ todos, setTodos, filterDoneOnly, filterCrucialOnly, setFilterDoneOnly, setFilterCrucialOnly, toggleDoneOnly, toogleCrucialOnly }}>
         {children}
         </TodoContext.Provider>
     );

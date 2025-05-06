@@ -6,7 +6,6 @@ import TodoInput from "./TodoInput/TodoInput"
 
 
 const TodoList: React.FC = () => {
-    let hasMounted = useRef(false);
     const { todos, setTodos } = useTodo();
     const [newElements, setNewElements] =  useState('');
 
@@ -76,8 +75,6 @@ const TodoList: React.FC = () => {
             const finalArray = [...finalElementsFilter];
             setTodos(finalArray);
         }
-        
-
     }        
 
     function crucialElments(indexElement:number) {
@@ -93,7 +90,6 @@ const TodoList: React.FC = () => {
 
         setTodos(crucialElement);
     }
-
 
     function isChecked(event:any) {
         const elemmentsCheck = todos.map((checkItem, index) => {
@@ -117,16 +113,17 @@ const TodoList: React.FC = () => {
         setTodos(elementsFilter);
     }
 
-    const { filterDoneOnly, filerCrucialOnly } = useTodo(); 
-    
+    const { filterDoneOnly, filterCrucialOnly, setFilterDoneOnly, setFilterCrucialOnly } = useTodo(); 
     let sortElements = [];
     
     if (filterDoneOnly) {
         const filtered = filterDoneOnly ? todos.filter((todo) => todo.done) : todos;
         sortElements = [...filtered.sort((a, b) => Number(a.done) - Number(b.done))];
-    } else if (filerCrucialOnly) {
-        const filteredCrucial = filerCrucialOnly ? todos.filter((todo) => todo.crucial && !todo.done) : todos
+
+    } else if (filterCrucialOnly) {
+        const filteredCrucial = filterCrucialOnly ? todos.filter((todo) => todo.crucial && !todo.done) : todos
         sortElements = [...filteredCrucial.sort((a, b) => Number(a.done) - Number(b.done))];
+
     } else {
         sortElements = [...todos.sort((a, b) => Number(a.done) - Number(b.done))];
     }

@@ -9,9 +9,12 @@ interface TodoColumnProps {
 
 
 const TodoColumn = ({listShowElements, filterOldElements, filterNewElements}: TodoColumnProps) => {
-    const { todos, setFilterDoneOnly, setFilerCrucialOnly } = useTodo();
+    const { todos, filterCrucialOnly, filterDoneOnly, setFilterDoneOnly, setFilterCrucialOnly, toggleDoneOnly,
+        toogleCrucialOnly, } = useTodo();
     const hasDone = todos.some((todo => todo.done));
     const hasCrucial = todos.some((todo => todo.crucial));
+
+    console.log(filterDoneOnly);
 
     return (
         <div className={"w-full " + (listShowElements.length === 0 ? "lg:w-1/2 " : "lg:w-auto")}>
@@ -28,16 +31,17 @@ const TodoColumn = ({listShowElements, filterOldElements, filterNewElements}: To
                     </button>
 
                     {hasCrucial && (
-                        <button className={"ml-2 cursor-pointer hover:bg-brown text-white px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
-                            (hasCrucial === true ? "bg-brown " : " bg-beige-light ")}
-                            onClick={() => setFilerCrucialOnly(prev => !prev)}>
+                        <button className={"ml-2 cursor-pointer text-white disabled:bg-gray-300 px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
+                            (filterCrucialOnly ? "bg-dark-blue-light " : " bg-beige-light ")}
+                            onClick={toogleCrucialOnly}>
                             Urgents 
                         </button>
                     )}
 
                     {hasDone && (
-                        <button className="bg-beige-light ml-2 cursor-pointer hover:bg-brown text-white px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
-                            onClick={() => setFilterDoneOnly(prev => !prev)}>
+                        <button className={"ml-2 cursor-pointer text-white disabled:bg-gray-300 px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
+                        (filterDoneOnly ? "bg-dark-blue-light " : " bg-beige-light")}
+                            onClick={toggleDoneOnly}>
                             Terminées
                         </button>
                     )}
