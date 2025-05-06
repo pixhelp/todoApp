@@ -133,7 +133,7 @@ const TodoList: React.FC = () => {
         sortElements = [...filtered.sort((a, b) => Number(a.done) - Number(b.done))];
 
     } else if (filterCrucialOnly) {
-        const filteredCrucial = filterCrucialOnly ? todos.filter((todo) => todo.crucial && !todo.done) : todos
+        const filteredCrucial = filterCrucialOnly ? todos.filter((todo) => todo.crucial) : todos
         sortElements = [...filteredCrucial.sort((a, b) => Number(a.done) - Number(b.done))];
 
     } else {

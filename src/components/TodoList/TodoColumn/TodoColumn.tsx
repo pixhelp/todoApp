@@ -31,7 +31,7 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
                         Récents 
                     </button>
 
-                    {hasCrucial && (
+                    {(hasCrucial) && (
                         <button className={"ml-2 cursor-pointer text-white disabled:bg-gray-300 px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
                             (filterCrucialOnly ? "bg-dark-blue-light " : " bg-beige-light")}
                             onClick={toogleCrucialOnly}>
