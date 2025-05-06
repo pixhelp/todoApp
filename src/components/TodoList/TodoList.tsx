@@ -119,7 +119,6 @@ const TodoList: React.FC = () => {
 
     const { filterDoneOnly, filerCrucialOnly } = useTodo(); 
     
-    
     let sortElements = [];
     
     if (filterDoneOnly) {
@@ -146,9 +145,6 @@ const TodoList: React.FC = () => {
             />
         )
     });
-
-    const hasDone = todos.some((todo => todo.done));
-    const hasCrucial = todos.some((todo => todo.crucial));
 
     return (
         <div>
