@@ -8,7 +8,6 @@ import TodoInput from "./TodoInput/TodoInput"
 const TodoList: React.FC = () => {
     let hasMounted = useRef(false);
     const { todos, setTodos } = useTodo();
-    const [elements, setElements] = useState<{ text: string; done: boolean, crucial: boolean, createdDate: number }[]>([]);
     const [newElements, setNewElements] =  useState('');
 
     function addElement() {
@@ -119,15 +118,15 @@ const TodoList: React.FC = () => {
     }
 
     const { filterDoneOnly, filerCrucialOnly } = useTodo(); 
-    const filtered = filterDoneOnly ? todos.filter((todo) => todo.done) : todos;
-    const filteredCrucial = filerCrucialOnly ? todos.filter((todo) => todo.crucial) : todos
-
-
+    
+    
     let sortElements = [];
     
     if (filterDoneOnly) {
+        const filtered = filterDoneOnly ? todos.filter((todo) => todo.done) : todos;
         sortElements = [...filtered.sort((a, b) => Number(a.done) - Number(b.done))];
     } else if (filerCrucialOnly) {
+        const filteredCrucial = filerCrucialOnly ? todos.filter((todo) => todo.crucial && !todo.done) : todos
         sortElements = [...filteredCrucial.sort((a, b) => Number(a.done) - Number(b.done))];
     } else {
         sortElements = [...todos.sort((a, b) => Number(a.done) - Number(b.done))];
@@ -160,8 +159,6 @@ const TodoList: React.FC = () => {
                         listShowElements={myListElements}
                         filterOldElements={sortOldElements}
                         filterNewElements={sortNewsElements}
-                        filterCrucialElements={hasCrucial}
-                        hasDoneElements={hasDone}
                     />
                 </div>
             </div>

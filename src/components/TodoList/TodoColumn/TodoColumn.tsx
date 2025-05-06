@@ -5,32 +5,38 @@ interface TodoColumnProps {
     listShowElements: React.ReactNode[];
     filterOldElements: () => void;
     filterNewElements: () => void;
-    filterCrucialElements: boolean;
-    hasDoneElements: boolean;
 }
 
 
-const TodoColumn = ({hasDoneElements, listShowElements, filterOldElements, filterNewElements, filterCrucialElements}: TodoColumnProps) => {
+const TodoColumn = ({listShowElements, filterOldElements, filterNewElements}: TodoColumnProps) => {
     const { todos, setFilterDoneOnly, setFilerCrucialOnly } = useTodo();
+    const hasDone = todos.some((todo => todo.done));
+    const hasCrucial = todos.some((todo => todo.crucial));
 
     return (
-        <div className={" " + (listShowElements.length === 0 ? "w-1/2 " : "w-auto")}>
-            {(listShowElements.length >= 2 || hasDoneElements) && (
+        <div className={"w-full " + (listShowElements.length === 0 ? "lg:w-1/2 " : "lg:w-auto")}>
+            {(listShowElements.length >= 2 || hasDone) && (
                 <div>
-                    <button className="bg-green-dark cursor-pointer hover:bg-brown text-white px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
+                    <button className="bg-green-dark cursor-pointer hover:bg-brown text-white px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
                     onClick={filterOldElements}>
                         Anciens
                     </button>
-                    <button className="bg-green-dark ml-4 cursor-pointer hover:bg-brown text-white px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
+
+                    <button className="bg-green-dark ml-2 cursor-pointer hover:bg-brown text-white px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
                     onClick={filterNewElements}>
                         Récents 
                     </button>
-                    <button className="bg-beige-light ml-4 cursor-pointer hover:bg-brown text-white px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
-                    onClick={() => setFilerCrucialOnly(prev => !prev)}>
-                        Urgents 
-                    </button>
-                    {hasDoneElements && (
-                        <button className="bg-beige-light ml-4 cursor-pointer hover:bg-brown text-white px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
+
+                    {hasCrucial && (
+                        <button className={"ml-2 cursor-pointer hover:bg-brown text-white px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
+                            (hasCrucial === true ? "bg-brown " : " bg-beige-light ")}
+                            onClick={() => setFilerCrucialOnly(prev => !prev)}>
+                            Urgents 
+                        </button>
+                    )}
+
+                    {hasDone && (
+                        <button className="bg-beige-light ml-2 cursor-pointer hover:bg-brown text-white px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
                             onClick={() => setFilterDoneOnly(prev => !prev)}>
                             Terminées
                         </button>
