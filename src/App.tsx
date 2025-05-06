@@ -27,7 +27,6 @@ function App() {
   }
 
   function closeMenu() {
-    console.log('coucou')
     setIsMobileMenuVisible(false)
 }
 

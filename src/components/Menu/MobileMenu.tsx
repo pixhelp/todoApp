@@ -8,7 +8,6 @@ interface MobileMenuToggleProps {
 
 const MobileMenu = ({isMenuVisible, closeMenuMobile}:MobileMenuToggleProps) => {
     return (
-        <>
         <div className={
                 "h-full z-10 w-full duration-200 ease-in text-gray-800 transition-all bg-light-gray absolute " +
                 (isMenuVisible ? "left-0" : "left-96 opacity-0 w-0 h-0 overflow-hidden")}>
@@ -23,11 +22,10 @@ const MobileMenu = ({isMenuVisible, closeMenuMobile}:MobileMenuToggleProps) => {
                     Text="Historique" />
                  <MenuLink 
                     closeMenuMobile={closeMenuMobile}
-                    LinkMenu=""
+                    LinkMenu="/Archives"
                     Text="Archivées" />
             </div>
         </div>
-        </>
     )
 }
 

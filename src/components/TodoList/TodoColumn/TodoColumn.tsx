@@ -10,7 +10,7 @@ interface TodoColumnProps {
 
 const TodoColumn = ({listShowElements, filterOldElements, filterNewElements, filterCrucialElement}: TodoColumnProps) => {
     return (
-        <div className="w-full">
+        <div className={" " + (listShowElements.length === 0 ? "w-1/2 " : "w-auto")}>
             {listShowElements.length >= 2 && (
                 <div>
                     <button className="bg-green-dark cursor-pointer hover:bg-brown text-white px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
