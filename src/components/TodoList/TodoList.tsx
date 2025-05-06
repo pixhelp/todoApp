@@ -8,6 +8,8 @@ import TodoInput from "./TodoInput/TodoInput"
 const TodoList: React.FC = () => {
     const { todos, setTodos } = useTodo();
     const [newElements, setNewElements] =  useState('');
+    const [isOldsActive, setIsOldsElements] = useState(false);
+    const [isNewsActive, setIsNewsElements] = useState(false);
 
     function addElement() {
         if (newElements.trim() !== '') {
@@ -35,11 +37,21 @@ const TodoList: React.FC = () => {
 
     function sortOldElements() {
         const filterOldElements = [...todos.sort((taskA, taskB) => taskA.createdDate - taskB.createdDate)];
+       
+        setIsOldsElements((oldsActive) => {
+            if (!oldsActive) setIsNewsElements(false);
+            return !oldsActive;
+        });
         setTodos(filterOldElements);
     }
 
     function sortNewsElements() {
         const filterNewsElements = [...todos.sort((taskA, taskB) => taskB.createdDate - taskA.createdDate)];
+        
+        setIsNewsElements((newsActive) => {
+            if (!newsActive) setIsOldsElements(false)
+                return !newsActive;
+        });
         setTodos(filterNewsElements);
     }
 
@@ -149,6 +161,8 @@ const TodoList: React.FC = () => {
                 <div className={"flex flex-col items-center w-full "
                     + ((todos.length > 10 ? 'xl:w-auto' : '') + (todos.length <= 10 ? 'w-1/2' : '')) }>
                     <TodoColumn
+                        isOldsElementActive={isOldsActive}
+                        isNewsElementActive={isNewsActive}
                         listShowElements={myListElements}
                         filterOldElements={sortOldElements}
                         filterNewElements={sortNewsElements}

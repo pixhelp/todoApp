@@ -5,34 +5,35 @@ interface TodoColumnProps {
     listShowElements: React.ReactNode[];
     filterOldElements: () => void;
     filterNewElements: () => void;
+    isOldsElementActive: boolean;
+    isNewsElementActive: boolean;
 }
 
 
-const TodoColumn = ({listShowElements, filterOldElements, filterNewElements}: TodoColumnProps) => {
-    const { todos, filterCrucialOnly, filterDoneOnly, setFilterDoneOnly, setFilterCrucialOnly, toggleDoneOnly,
-        toogleCrucialOnly, } = useTodo();
+const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive, filterOldElements, filterNewElements}: TodoColumnProps) => {
+    const { todos, filterCrucialOnly, filterDoneOnly, setFilterDoneOnly, setFilterCrucialOnly, toggleDoneOnly, toogleCrucialOnly, } = useTodo();
     const hasDone = todos.some((todo => todo.done));
     const hasCrucial = todos.some((todo => todo.crucial));
-
-    console.log(filterDoneOnly);
 
     return (
         <div className={"w-full " + (listShowElements.length === 0 ? "lg:w-1/2 " : "lg:w-auto")}>
             {(listShowElements.length >= 2 || hasDone) && (
                 <div>
-                    <button className="bg-green-dark cursor-pointer hover:bg-brown text-white px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
-                    onClick={filterOldElements}>
+                    <button className={"cursor-pointer text-white px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
+                        (!isOldsElementActive ? ' bg-green-dark ' : ' bg-dark-blue-light')}
+                        onClick={filterOldElements}>
                         Anciens
                     </button>
 
-                    <button className="bg-green-dark ml-2 cursor-pointer hover:bg-brown text-white px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
-                    onClick={filterNewElements}>
+                    <button className={"ml-2 cursor-pointer text-white px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
+                        (!isNewsElementActive ? ' bg-green-dark ' : ' bg-dark-blue-light')}
+                        onClick={filterNewElements}>
                         Récents 
                     </button>
 
                     {hasCrucial && (
                         <button className={"ml-2 cursor-pointer text-white disabled:bg-gray-300 px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
-                            (filterCrucialOnly ? "bg-dark-blue-light " : " bg-beige-light ")}
+                            (filterCrucialOnly ? "bg-dark-blue-light " : " bg-beige-light")}
                             onClick={toogleCrucialOnly}>
                             Urgents 
                         </button>
@@ -40,7 +41,7 @@ const TodoColumn = ({listShowElements, filterOldElements, filterNewElements}: To
 
                     {hasDone && (
                         <button className={"ml-2 cursor-pointer text-white disabled:bg-gray-300 px-2 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
-                        (filterDoneOnly ? "bg-dark-blue-light " : " bg-beige-light")}
+                        (filterDoneOnly ? "bg-dark-blue-light " : " bg-green-light ")}
                             onClick={toggleDoneOnly}>
                             Terminées
                         </button>
