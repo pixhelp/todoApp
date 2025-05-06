@@ -1,17 +1,21 @@
 import { useEffect, useRef, useState } from "react";
+import { useTodo } from "../../../context/todoContext";
 
 interface TodoColumnProps {
     listShowElements: React.ReactNode[];
     filterOldElements: () => void;
     filterNewElements: () => void;
-    filterCrucialElement: () => void;
+    filterCrucialElements: boolean;
+    hasDoneElements: boolean;
 }
 
 
-const TodoColumn = ({listShowElements, filterOldElements, filterNewElements, filterCrucialElement}: TodoColumnProps) => {
+const TodoColumn = ({hasDoneElements, listShowElements, filterOldElements, filterNewElements, filterCrucialElements}: TodoColumnProps) => {
+    const { todos, setFilterDoneOnly, setFilerCrucialOnly } = useTodo();
+
     return (
         <div className={" " + (listShowElements.length === 0 ? "w-1/2 " : "w-auto")}>
-            {listShowElements.length >= 2 && (
+            {(listShowElements.length >= 2 || hasDoneElements) && (
                 <div>
                     <button className="bg-green-dark cursor-pointer hover:bg-brown text-white px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
                     onClick={filterOldElements}>
@@ -22,9 +26,15 @@ const TodoColumn = ({listShowElements, filterOldElements, filterNewElements, fil
                         Récents 
                     </button>
                     <button className="bg-beige-light ml-4 cursor-pointer hover:bg-brown text-white px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
-                    onClick={filterCrucialElement}>
+                    onClick={() => setFilerCrucialOnly(prev => !prev)}>
                         Urgents 
                     </button>
+                    {hasDoneElements && (
+                        <button className="bg-beige-light ml-4 cursor-pointer hover:bg-brown text-white px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl"
+                            onClick={() => setFilterDoneOnly(prev => !prev)}>
+                            Terminées
+                        </button>
+                    )}
                 </div>
             )}
             <div className="flex w-full flex-col lg:flex-row">

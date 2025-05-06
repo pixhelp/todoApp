@@ -1,118 +1,179 @@
-import { useState } from "react";
-import { useTodo } from "../../context/todoContext";
+import { useState, useEffect,useRef } from "react";
+import { useTodo } from "../../context/todoContext"
 import TodoColumn from "./TodoColumn/TodoColumn";
 import TodoItem from "./TodoItem/TodoItem";
-import TodoInput from "./TodoInput/TodoInput";
+import TodoInput from "./TodoInput/TodoInput"
+
 
 const TodoList: React.FC = () => {
-  const { todos, setTodos } = useTodo();
-  const [newElements, setNewElements] = useState('');
+    let hasMounted = useRef(false);
+    const { todos, setTodos } = useTodo();
+    const [elements, setElements] = useState<{ text: string; done: boolean, crucial: boolean, createdDate: number }[]>([]);
+    const [newElements, setNewElements] =  useState('');
 
-  function addElement() {
-    if (newElements.trim() !== '') {
-      const todoElement = {
-        text: newElements,
-        done: false,
-        crucial: false,
-        createdDate: Date.now(),
-      };
-      setTodos([...todos, todoElement]);
-      setNewElements('');
+    function addElement() {
+        if (newElements.trim() !== '') {
+            const todoElement = {
+                text: newElements,
+                done: false,
+                crucial: false,
+                createdDate: Date.now(),
+            }
+
+            setTodos([...todos, todoElement]);
+            setNewElements('');
+        }
     }
-  }
 
-  function removeElement(index: number) {
-    setTodos(todos.filter((_, i) => i !== index));
-  }
+    function removeElement(indexArray: number) {
+        const filterTodo = todos.filter((_el, index) => indexArray != index);
+       setTodos(filterTodo);
+    }
+    
+    function removeAllElements() {
+       const filterAllElements = [...todos.filter((el) => el.done === false)]
+       setTodos(filterAllElements);
+    }
 
-  function removeAllElements() {
-    setTodos(todos.filter((el) => !el.done));
-  }
+    function sortOldElements() {
+        const filterOldElements = [...todos.sort((taskA, taskB) => taskA.createdDate - taskB.createdDate)];
+        setTodos(filterOldElements);
+    }
 
-  function sortOldElements() {
-    setTodos([...todos].sort((a, b) => a.createdDate - b.createdDate));
-  }
+    function sortNewsElements() {
+        const filterNewsElements = [...todos.sort((taskA, taskB) => taskB.createdDate - taskA.createdDate)];
+        setTodos(filterNewsElements);
+    }
 
-  function sortNewsElements() {
-    setTodos([...todos].sort((a, b) => b.createdDate - a.createdDate));
-  }
+    function sortCrucialElement(event:any) {
+        const findTargetCrucialElement = todos.find((el, index:number) => event.target.value == index.toString());
+        const cloneCrucialElement = {
+            text: findTargetCrucialElement?.text || '',
+            done: findTargetCrucialElement?.done || false,
+            crucial: findTargetCrucialElement?.crucial || false,
+            createdDate: findTargetCrucialElement?.createdDate || Date.now(),
+        };
+        
+        if (cloneCrucialElement.crucial === true) {
+            cloneCrucialElement.crucial = false;
+        } else if (cloneCrucialElement.crucial === false) {
+            cloneCrucialElement.crucial = true;
+        }
 
-  function sortCrucialElements() {
-    setTodos([...todos].sort((a, b) => Number(b.crucial) - Number(a.crucial)));
-  }
+        const normalsElementsFilter = todos.filter((el,index:number) => (event.target.value != index.toString()));
 
-  function sortCrucialElement(event: any) {
-    const index = parseInt(event.target.value);
-    const updated = [...todos];
-    const [target] = updated.splice(index, 1);
-    target.crucial = !target.crucial;
+        if (cloneCrucialElement.crucial === true) {
+            normalsElementsFilter.unshift(cloneCrucialElement);
+            const finalArray = [...normalsElementsFilter];
+            setTodos(finalArray);
 
-    if (target.crucial) {
-      updated.unshift(target);
+        } else if (cloneCrucialElement.crucial === false) {
+            normalsElementsFilter.push(cloneCrucialElement);
+
+            const elementsCrucialFilter = normalsElementsFilter.filter((el: { text: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => el.crucial);
+            const elementsNoCrucialFilter = normalsElementsFilter.filter((el: { text: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => !el.crucial);
+            elementsNoCrucialFilter.sort((dateA, dateB) => dateA.createdDate - dateB.createdDate);
+            const finalElementsFilter = elementsCrucialFilter.concat(elementsNoCrucialFilter)
+            const finalArray = [...finalElementsFilter];
+            setTodos(finalArray);
+        }
+        
+
+    }        
+
+    function crucialElments(indexElement:number) {
+        const crucialElement = [...todos.map((el: { text: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => {
+            if (index === indexElement && el.crucial === false) {
+                return {...el, crucial: true}
+            } else if (index === indexElement && el.crucial === true) {
+                return {...el, crucial: false}
+            } else {
+                return el;
+            }
+        })];
+
+        setTodos(crucialElement);
+    }
+
+
+    function isChecked(event:any) {
+        const elemmentsCheck = todos.map((checkItem, index) => {
+            if (event.target.value == index.toString() && event.target.checked) {
+                checkItem.done = true;
+            } 
+            
+            if (event.target.value == index && !event.target.checked) {
+                checkItem.done = false;
+            }
+            
+            
+            return checkItem;
+        });
+        
+        const elementsCrucial = elemmentsCheck.filter((el: { text: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => (el.crucial));
+        const elementsNoCrucial = elemmentsCheck.filter((el: { text: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => (!el.crucial));
+        elementsNoCrucial.sort((checkA, checkB) => (checkA.createdDate - checkB.createdDate));
+        const elementsFilter = elementsCrucial.concat(elementsNoCrucial);
+
+        setTodos(elementsFilter);
+    }
+
+    const { filterDoneOnly, filerCrucialOnly } = useTodo(); 
+    const filtered = filterDoneOnly ? todos.filter((todo) => todo.done) : todos;
+    const filteredCrucial = filerCrucialOnly ? todos.filter((todo) => todo.crucial) : todos
+
+
+    let sortElements = [];
+    
+    if (filterDoneOnly) {
+        sortElements = [...filtered.sort((a, b) => Number(a.done) - Number(b.done))];
+    } else if (filerCrucialOnly) {
+        sortElements = [...filteredCrucial.sort((a, b) => Number(a.done) - Number(b.done))];
     } else {
-      updated.push(target);
-      const crucial = updated.filter((el) => el.crucial);
-      const normal = updated.filter((el) => !el.crucial).sort((a, b) => a.createdDate - b.createdDate);
-      setTodos([...crucial, ...normal]);
-      return;
+        sortElements = [...todos.sort((a, b) => Number(a.done) - Number(b.done))];
     }
 
-    setTodos(updated);
-  }
+    const myListElements = sortElements.map((el, index) => {
+        return (
+            <TodoItem
+                key={index}
+                index={index}
+                showElement={el}
+                check={isChecked}
+                remove={() => removeElement(index)}
+                totalElements={todos.length}
+                changeCrucialElements={crucialElments}
+                sortCrucialElementFilter={sortCrucialElement}
+            />
+        )
+    });
 
-  function crucialElments(index: number) {
-    const updated = todos.map((el, i) =>
-      i === index ? { ...el, crucial: !el.crucial } : el
-    );
-    setTodos(updated);
-  }
+    const hasDone = todos.some((todo => todo.done));
+    const hasCrucial = todos.some((todo => todo.crucial));
 
-  function isChecked(event: any) {
-    const index = parseInt(event.target.value);
-    const updated = todos.map((el, i) =>
-      i === index ? { ...el, done: event.target.checked } : el
-    );
-
-    const crucial = updated.filter((el) => el.crucial);
-    const normal = updated.filter((el) => !el.crucial).sort((a, b) => a.createdDate - b.createdDate);
-    setTodos([...crucial, ...normal]);
-  }
-
-  const sorted = [...todos].sort((a, b) => Number(a.done) - Number(b.done));
-  const myListElements = sorted.map((el, index) => (
-    <TodoItem
-      key={index}
-      index={index}
-      showElement={el}
-      check={isChecked}
-      remove={() => removeElement(index)}
-      totalElements={todos.length}
-      changeCrucialElements={crucialElments}
-      sortCrucialElementFilter={sortCrucialElement}
-    />
-  ));
-
-  return (
-    <div>
-      <div className="px-4 sm:px-20 py-5 flex flex-col items-center w-full">
-        <div className={"flex flex-col items-center w-full " + ((todos.length > 10 ? 'xl:w-auto' : '') + (todos.length <= 10 ? 'w-1/2' : ''))}>
-          <TodoColumn
-            listShowElements={myListElements}
-            filterOldElements={sortOldElements}
-            filterNewElements={sortNewsElements}
-            filterCrucialElement={sortCrucialElements}
-          />
+    return (
+        <div>
+            <div className="px-4 sm:px-20 py-5 flex flex-col items-center w-full">
+                <div className={"flex flex-col items-center w-full "
+                    + ((todos.length > 10 ? 'xl:w-auto' : '') + (todos.length <= 10 ? 'w-1/2' : '')) }>
+                    <TodoColumn
+                        listShowElements={myListElements}
+                        filterOldElements={sortOldElements}
+                        filterNewElements={sortNewsElements}
+                        filterCrucialElements={hasCrucial}
+                        hasDoneElements={hasDone}
+                    />
+                </div>
+            </div>
+            <TodoInput
+                addItemElement={addElement}
+                addNewElement={newElements}
+                creatNewElement={setNewElements}
+                addNewItemsElement={addElement}
+                removeElements={removeAllElements}
+                />
         </div>
-      </div>
-      <TodoInput
-        addItemElement={addElement}
-        addNewElement={newElements}
-        creatNewElement={setNewElements}
-        addNewItemsElement={addElement}
-        removeElements={removeAllElements}
-      />
-    </div>
-  );
-};
+    )
+}
 
 export default TodoList;

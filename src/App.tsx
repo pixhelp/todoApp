@@ -32,9 +32,7 @@ function App() {
 
   return (
     <div>
-      <Header
-        mobileMenuShowHide={mobileMenuToggle}
-        />
+      <Header mobileMenuShowHide={mobileMenuToggle}/>
       <Menu/>
       <MobileMenu
         closeMenuMobile={closeMenu}
