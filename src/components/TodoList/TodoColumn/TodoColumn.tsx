@@ -7,10 +7,11 @@ interface TodoColumnProps {
     filterNewElements: () => void;
     isOldsElementActive: boolean;
     isNewsElementActive: boolean;
+    isAllCheckedElements: () => void;
 }
 
 
-const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive, filterOldElements, filterNewElements}: TodoColumnProps) => {
+const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive, filterOldElements, filterNewElements, isAllCheckedElements}: TodoColumnProps) => {
     const { todos, filterCrucialOnly, filterDoneOnly, toggleDoneOnly, toogleCrucialOnly, } = useTodo();
     const hasDone = todos.some((todo => todo.done));
     const hasCrucial = todos.some((todo => todo.crucial));
@@ -48,6 +49,30 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
                     )}
                 </div>
             )}
+            <div className="flex flex-row">
+                <div className='relative'>
+                    <input type="checkbox" value="check-all" onClick={isAllCheckedElements} className="border
+                            peer cursor-pointer relative appearance-none shrink-0 w-3.5 h-3.5 border-dark-blue rounded-sm mt-1 bg-white
+                            focus:outline-none focus:ring-offset-0 focus-visible:outline-none focus:ring-1 focus:ring-blue-100
+                            checked:bg-green-dark
+                            disabled:border-steel-400 disabled:bg-steel-400"/>
+                            <svg
+                            className="absolute top-0.5 left-[1px] w-3 h-3 pointer-events-none hidden peer-checked:block stroke-white mt-1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                <p className="text-sm text-gray-800 ml-1.5">
+                    Sélectionner toutes les tâches
+                </p>
+            </div>
             <div className="flex w-full flex-col lg:flex-row">
                 <div className="flex flex-1 flex-col lg:flex-row w-full lg:w-auto">
                     <div className="flex-1 text-left font-playwrite shadow-box-light bg-white w-full lg:w-96 m-h-96">
