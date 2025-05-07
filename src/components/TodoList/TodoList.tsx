@@ -12,6 +12,8 @@ const TodoList: React.FC = () => {
     const [isNewsActive, setIsNewsElements] = useState(false);
     const [isAllChecked, setIsAllChecked] = useState(false);
 
+    const { filterDoneOnly, filterCrucialOnly } = useTodo(); 
+
     const addElement = () => {
         if (newElements.trim() !== '') {
             const todoElement = {
@@ -28,7 +30,7 @@ const TodoList: React.FC = () => {
 
     const removeElement = (indexArray: number) => {
         const filterTodo = todos.filter((_el, index) => indexArray != index);
-       setTodos(filterTodo);
+        setTodos(filterTodo);
     }
     
     const removeAllElements = () => {
@@ -128,9 +130,9 @@ const TodoList: React.FC = () => {
         setTodos(elementsFilter);
     }
 
-    const { filterDoneOnly, filterCrucialOnly } = useTodo(); 
-    let sortElements = [];
+   
     
+    let sortElements = [];
     if (filterDoneOnly) {
         const filtered = filterDoneOnly ? todos.filter((todo) => todo.done) : todos;
         sortElements = [...filtered.sort((a, b) => Number(a.done) - Number(b.done))];
@@ -168,7 +170,7 @@ const TodoList: React.FC = () => {
             />
         )
     });
-        
+
     return (
         <div>
             <div className="px-4 sm:px-20 py-5 flex flex-col items-center w-full">

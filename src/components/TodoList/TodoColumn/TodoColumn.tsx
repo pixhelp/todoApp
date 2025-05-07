@@ -18,7 +18,7 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
 
     return (
         <div className={"w-full " + (listShowElements.length === 0 ? "lg:w-1/2 " : "lg:w-auto")}>
-            {(listShowElements.length >= 2 || hasDone) && (
+            {(listShowElements.length >= 2) && (
                 <div>
                     <button className={"cursor-pointer text-sm lg:text-lg text-white px-1.5 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
                         (!isOldsElementActive ? ' bg-green-dark ' : ' bg-dark-blue-light')}
