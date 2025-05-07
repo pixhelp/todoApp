@@ -11,7 +11,7 @@ const Header = ({mobileMenuShowHide}: MobileMenuToggleProps) => {
             <Link className="flex flex-row items-center justify-center" to={"/"}>
                 My todo
             </Link>
-            <Menu className="lg:hidden block absolute right-6 top-4" onClick={mobileMenuShowHide} size={30} />
+            <Menu className="lg:hidden block absolute right-6 top-4 " onClick={mobileMenuShowHide} size={30} />
         </div>
     )
 }

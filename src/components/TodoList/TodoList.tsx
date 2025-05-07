@@ -10,6 +10,7 @@ const TodoList: React.FC = () => {
     const [newElements, setNewElements] =  useState('');
     const [isOldsActive, setIsOldsElements] = useState(false);
     const [isNewsActive, setIsNewsElements] = useState(false);
+    const [isAllChecked, setIsAllChecked] = useState(false);
 
     function addElement() {
         if (newElements.trim() !== '') {
@@ -42,6 +43,7 @@ const TodoList: React.FC = () => {
             if (!oldsActive) setIsNewsElements(false);
             return !oldsActive;
         });
+
         setTodos(filterOldElements);
     }
 
@@ -52,6 +54,7 @@ const TodoList: React.FC = () => {
             if (!newsActive) setIsOldsElements(false)
                 return !newsActive;
         });
+
         setTodos(filterNewsElements);
     }
 
@@ -125,7 +128,7 @@ const TodoList: React.FC = () => {
         setTodos(elementsFilter);
     }
 
-    const { filterDoneOnly, filterCrucialOnly, setFilterDoneOnly, setFilterCrucialOnly } = useTodo(); 
+    const { filterDoneOnly, filterCrucialOnly } = useTodo(); 
     let sortElements = [];
     
     if (filterDoneOnly) {
@@ -133,14 +136,26 @@ const TodoList: React.FC = () => {
         sortElements = [...filtered.sort((a, b) => Number(a.done) - Number(b.done))];
 
     } else if (filterCrucialOnly) {
-        const filteredCrucial = filterCrucialOnly ? todos.filter((todo) => todo.crucial) : todos
+        const filteredCrucial = filterCrucialOnly ? todos.filter((todo) => todo.crucial) : todos;
         sortElements = [...filteredCrucial.sort((a, b) => Number(a.done) - Number(b.done))];
 
     } else {
         sortElements = [...todos.sort((a, b) => Number(a.done) - Number(b.done))];
-    }
+    };
 
+    const checkAllElements = () => {
+        const newStateAllCheck = !isAllChecked;
+        setIsAllChecked(newStateAllCheck);
+
+        const checkElements = [...todos.map((el) => {
+            return { ...el, done: newStateAllCheck };
+        })];
+
+        setTodos(checkElements);
+    };
+    
     const myListElements = sortElements.map((el, index) => {
+
         return (
             <TodoItem
                 key={index}
@@ -151,12 +166,13 @@ const TodoList: React.FC = () => {
                 totalElements={todos.length}
                 changeCrucialElements={crucialElments}
                 sortCrucialElementFilter={sortCrucialElement}
-            />
-        )
-    });
-
-    return (
-        <div>
+                />
+            )
+        });
+        
+        return (
+            <div>
+            <input type="checkbox" value="check-all" onClick={checkAllElements}/>
             <div className="px-4 sm:px-20 py-5 flex flex-col items-center w-full">
                 <div className={"flex flex-col items-center w-full "
                     + ((todos.length > 10 ? 'xl:w-auto' : '') + (todos.length <= 10 ? 'w-1/2' : '')) }>

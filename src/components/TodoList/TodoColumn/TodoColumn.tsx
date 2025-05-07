@@ -11,7 +11,7 @@ interface TodoColumnProps {
 
 
 const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive, filterOldElements, filterNewElements}: TodoColumnProps) => {
-    const { todos, filterCrucialOnly, filterDoneOnly, setFilterDoneOnly, setFilterCrucialOnly, toggleDoneOnly, toogleCrucialOnly, } = useTodo();
+    const { todos, filterCrucialOnly, filterDoneOnly, toggleDoneOnly, toogleCrucialOnly, } = useTodo();
     const hasDone = todos.some((todo => todo.done));
     const hasCrucial = todos.some((todo => todo.crucial));
 

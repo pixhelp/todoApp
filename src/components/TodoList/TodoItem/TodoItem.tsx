@@ -1,4 +1,5 @@
 import { Trash2, Clock, ClockAlert } from 'lucide-react';
+import { useTodo } from "../../../context/todoContext";
 
 interface TodoItemsProps {
     index:number;
@@ -55,14 +56,14 @@ const TodoItem = ({index, showElement, check, remove, totalElements, changeCruci
                         checked:bg-green-dark mr-2
                         disabled:border-steel-400 disabled:bg-steel-400"/>
                     <svg
-                    className="absolute top-1.5 left-[1px] w-3 h-3 pointer-events-none hidden peer-checked:block stroke-white mt-1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                        className="absolute top-1.5 left-[1px] w-3 h-3 pointer-events-none hidden peer-checked:block stroke-white mt-1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                     >
                     <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
