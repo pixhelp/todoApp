@@ -12,7 +12,7 @@ const TodoList: React.FC = () => {
     const [isNewsActive, setIsNewsElements] = useState(false);
     const [isAllChecked, setIsAllChecked] = useState(false);
 
-    function addElement() {
+    const addElement = () => {
         if (newElements.trim() !== '') {
             const todoElement = {
                 text: newElements,
@@ -26,17 +26,17 @@ const TodoList: React.FC = () => {
         }
     }
 
-    function removeElement(indexArray: number) {
+    const removeElement = (indexArray: number) => {
         const filterTodo = todos.filter((_el, index) => indexArray != index);
        setTodos(filterTodo);
     }
     
-    function removeAllElements() {
+    const removeAllElements = () => {
        const filterAllElements = [...todos.filter((el) => el.done === false)]
        setTodos(filterAllElements);
     }
 
-    function sortOldElements() {
+    const sortOldElements = () => {
         const filterOldElements = [...todos.sort((taskA, taskB) => taskA.createdDate - taskB.createdDate)];
        
         setIsOldsElements((oldsActive) => {
@@ -47,7 +47,7 @@ const TodoList: React.FC = () => {
         setTodos(filterOldElements);
     }
 
-    function sortNewsElements() {
+    const sortNewsElements = () => {
         const filterNewsElements = [...todos.sort((taskA, taskB) => taskB.createdDate - taskA.createdDate)];
         
         setIsNewsElements((newsActive) => {
@@ -58,7 +58,7 @@ const TodoList: React.FC = () => {
         setTodos(filterNewsElements);
     }
 
-    function sortCrucialElement(event:any) {
+    const sortCrucialElement = (event:any) => {
         const findTargetCrucialElement = todos.find((el, index:number) => event.target.value == index.toString());
         const cloneCrucialElement = {
             text: findTargetCrucialElement?.text || '',
@@ -92,7 +92,7 @@ const TodoList: React.FC = () => {
         }
     }        
 
-    function crucialElments(indexElement:number) {
+    const crucialElments = (indexElement:number) => {
         const crucialElement = [...todos.map((el: { text: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => {
             if (index === indexElement && el.crucial === false) {
                 return {...el, crucial: true}
@@ -106,7 +106,7 @@ const TodoList: React.FC = () => {
         setTodos(crucialElement);
     }
 
-    function isChecked(event:any) {
+    const isChecked = (event:any) => {
         const elemmentsCheck = todos.map((checkItem, index) => {
             if (event.target.value == index.toString() && event.target.checked) {
                 checkItem.done = true;
@@ -155,7 +155,6 @@ const TodoList: React.FC = () => {
     };
     
     const myListElements = sortElements.map((el, index) => {
-
         return (
             <TodoItem
                 key={index}
@@ -166,12 +165,12 @@ const TodoList: React.FC = () => {
                 totalElements={todos.length}
                 changeCrucialElements={crucialElments}
                 sortCrucialElementFilter={sortCrucialElement}
-                />
-            )
-        });
+            />
+        )
+    });
         
-        return (
-            <div>
+    return (
+        <div>
             <input type="checkbox" value="check-all" onClick={checkAllElements}/>
             <div className="px-4 sm:px-20 py-5 flex flex-col items-center w-full">
                 <div className={"flex flex-col items-center w-full "
@@ -185,6 +184,7 @@ const TodoList: React.FC = () => {
                     />
                 </div>
             </div>
+            
             <TodoInput
                 addItemElement={addElement}
                 addNewElement={newElements}
