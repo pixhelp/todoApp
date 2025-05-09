@@ -1,7 +1,7 @@
 
 interface TodoInputProps {
-    addItemElement: (text: string, done?: boolean, crucial?: boolean, createdDate?: number) => void;
-    addNewItemsElement: (text: string, done?: boolean, crucial?: boolean, createdDate?:number) => void;
+    addItemElement: (text: string, title: string, done?: boolean, crucial?: boolean, createdDate?: number) => void;
+    addNewItemsElement: (text: string, done?: boolean, title?: string, crucial?: boolean, createdDate?:number) => void;
     creatNewElement: (value: string) => void;
     creatNewTitleElement: (value: string) => void;
     addTitleElement: (value: string) => void;
@@ -26,7 +26,7 @@ const TodoInput = ({addItemElement,addNewTitleElement, creatNewTitleElement, add
                         if (e.key === 'Enter') {
                             e.preventDefault();
                             if (e.target instanceof HTMLInputElement) {
-                                addItemElement(e.target.value, false);
+                                addItemElement(e.target.value, addNewTitleElement, false);
                             }
                         }
                     }}
@@ -36,12 +36,12 @@ const TodoInput = ({addItemElement,addNewTitleElement, creatNewTitleElement, add
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             e.preventDefault(); 
-                            if (e.target instanceof HTMLInputElement) {
-                                addItemElement(e.target.value, false);
+                            if (e.target instanceof HTMLTextAreaElement) {
+                                addItemElement(e.target.value, addNewElement, false);
                             }
                         }
                     }} className="my-4 h-20 border w-full flex-1 p-2 rounded-lg" value={addNewElement} name="addValue" onChange={event => creatNewElement(event.target.value)} title="ajouter à la liste" placeholder="Ajouter un éléments"></textarea>
-                <button className="bg-green-dark text-white px-4 py-2 ml-2 h-12 lg:h-auto rounded-lg sm:ml-2" onClick={() => addItemElement(addNewElement, false)}>Ajouter</button>
+                <button className="bg-green-dark text-white px-4 py-2 ml-2 h-12 lg:h-auto rounded-lg sm:ml-2" onClick={() => addItemElement(addNewElement, addNewTitleElement)}>Ajouter</button>
             </div>
             <button className="text-xs mt-4 sm:mt-0 text-gray-700 lg:mb-4 hover:text-gray-400 w-auto" onClick={removeElements}>Supprimer toutes les taches faites</button>
         </div>

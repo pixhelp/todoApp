@@ -22,13 +22,13 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
             <div className="flex">
                     {(listShowElements.length >= 2) && (
                         <div>
-                            <button className={"cursor-pointer text-sm lg:text-lg text-white px-1.5 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
+                            <button className={"cursor-pointer text-sm lg:text-lg text-white px-1.5 lg:px-4 py-2 h-12 sm:h-auto mb-2 " +
                                 (!isOldsElementActive ? ' bg-green-dark ' : ' bg-dark-blue-light')}
                                 onClick={filterOldElements}>
                                 Anciens
                             </button>
 
-                            <button className={"ml-2 cursor-pointer text-sm lg:text-lg text-white px-1.5 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
+                            <button className={"ml-2 cursor-pointer text-sm lg:text-lg text-white px-1.5 lg:px-4 py-2 h-12 sm:h-auto mb-2 " +
                                 (!isNewsElementActive ? ' bg-green-dark ' : ' bg-dark-blue-light')}
                                 onClick={filterNewElements}>
                                 Récents 
@@ -39,7 +39,7 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
             </div>
                 <div className="flex">
                     {(hasCrucial) && (
-                        <button className={"ml-2 cursor-pointer text-sm lg:text-lg text-white px-1.5 disabled:bg-gray-300 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
+                        <button className={"ml-2 cursor-pointer text-sm lg:text-lg text-white px-1.5 disabled:bg-gray-300 lg:px-4 py-2 h-12 sm:h-auto mb-2 " +
                             (filterCrucialOnly ? "bg-dark-blue-light " : " bg-beige-light")}
                             onClick={toogleCrucialOnly}>
                             Urgents 
@@ -47,7 +47,7 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
                     )}
 
                     {hasDone && (
-                        <button className={"ml-2 cursor-pointer text-sm lg:text-lg text-white disabled:bg-gray-300 px-1.5 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
+                        <button className={"ml-2 cursor-pointer text-sm lg:text-lg text-white disabled:bg-gray-300 px-1.5 lg:px-4 py-2 h-12 sm:h-auto mb-2 " +
                             (filterDoneOnly ? "bg-dark-blue-light " : " bg-green-light ")}
                             onClick={toggleDoneOnly}>
                             Terminées
@@ -84,7 +84,7 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
 
             <div className="flex w-full flex-col lg:flex-row">
                 <div className="flex flex-1 flex-col lg:flex-row w-full lg:w-auto">
-                    <div className="flex-1 text-left font-playwrite shadow-box-light bg-white w-full lg:w-96 m-h-96">
+                    <div className="flex-1 text-left shadow-box-light bg-white w-full lg:w-96 m-h-96">
                         {listShowElements.length === 0 && (
                             <p className="text-center text-xl pb-6 pt-4 text-black">Commencez votre liste</p>
                         )}  
@@ -94,7 +94,7 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
 
                 {listShowElements.length > 10 && (
                     <div className="flex flex-1 flex-col lg:ml-4 lg:flex-row w-full lg:w-auto">
-                        <div className="flex-1 text-left font-playwrite shadow-box-light bg-white w-full lg:w-96 m-h-96">
+                        <div className="flex-1 text-left shadow-box-light bg-white w-full lg:w-96 m-h-96">
                             {listShowElements.slice(10)}
                         </div>
                     </div>
