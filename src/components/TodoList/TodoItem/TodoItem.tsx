@@ -74,7 +74,7 @@ const TodoItem = ({index, showElement, check, totalElements, changeCrucialElemen
                     ? 'Tâche urgente terminée'
                     : 'Tâche terminée'
                 : `Créé ${relativeDate(showElement.createdDate)}`}
-                 </span>
+            </span>
         </div>
     )
 }
