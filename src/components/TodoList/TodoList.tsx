@@ -8,14 +8,16 @@ import TodoInput from "./TodoInput/TodoInput"
 const TodoList: React.FC = () => {
     const { todos, setTodos } = useTodo();
     const [newElements, setNewElements] =  useState('');
+    const [newTitleElements, setNewTitleElements] = useState<string>('');
     const [isOldsActive, setIsOldsElements] = useState(false);
     const [isNewsActive, setIsNewsElements] = useState(false);
     const [isAllChecked, setIsAllChecked] = useState(false);
     const { filterDoneOnly, filterCrucialOnly } = useTodo(); 
 
     const addElement = () => {
-        if (newElements.trim() !== '') {
+        if (newElements.trim() !== '' && newTitleElements.trim() !== '') {
             const todoElement = {
+                title: newTitleElements,
                 text: newElements,
                 done: false,
                 crucial: false,
@@ -24,6 +26,7 @@ const TodoList: React.FC = () => {
 
             setTodos([...todos, todoElement]);
             setNewElements('');
+            setNewTitleElements('');
         }
     }
     
@@ -58,6 +61,7 @@ const TodoList: React.FC = () => {
         const findTargetCrucialElement = todos.find((el, index:number) => event.target.value == index.toString());
         const cloneCrucialElement = {
             text: findTargetCrucialElement?.text || '',
+            title: findTargetCrucialElement?.title || '',
             done: findTargetCrucialElement?.done || false,
             crucial: findTargetCrucialElement?.crucial || false,
             createdDate: findTargetCrucialElement?.createdDate || Date.now(),
@@ -79,8 +83,8 @@ const TodoList: React.FC = () => {
         } else if (cloneCrucialElement.crucial === false) {
             normalsElementsFilter.push(cloneCrucialElement);
 
-            const elementsCrucialFilter = normalsElementsFilter.filter((el: { text: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => el.crucial);
-            const elementsNoCrucialFilter = normalsElementsFilter.filter((el: { text: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => !el.crucial);
+            const elementsCrucialFilter = normalsElementsFilter.filter((el: { text: string; title: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => el.crucial);
+            const elementsNoCrucialFilter = normalsElementsFilter.filter((el: { text: string; title: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => !el.crucial);
             elementsNoCrucialFilter.sort((dateA, dateB) => dateA.createdDate - dateB.createdDate);
             const finalElementsFilter = elementsCrucialFilter.concat(elementsNoCrucialFilter)
             const finalArray = [...finalElementsFilter];
@@ -89,7 +93,7 @@ const TodoList: React.FC = () => {
     }        
 
     const crucialElments = (indexElement:number) => {
-        const crucialElement = [...todos.map((el: { text: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => {
+        const crucialElement = [...todos.map((el: { text: string; title:string; done: boolean; crucial: boolean; createdDate: number }, index: number) => {
             if (index === indexElement && el.crucial === false) {
                 return {...el, crucial: true}
             } else if (index === indexElement && el.crucial === true) {
@@ -116,8 +120,8 @@ const TodoList: React.FC = () => {
             return checkItem;
         });
         
-        const elementsCrucial = elemmentsCheck.filter((el: { text: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => (el.crucial));
-        const elementsNoCrucial = elemmentsCheck.filter((el: { text: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => (!el.crucial));
+        const elementsCrucial = elemmentsCheck.filter((el: { text: string; title: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => (el.crucial));
+        const elementsNoCrucial = elemmentsCheck.filter((el: { text: string; title: string; done: boolean; crucial: boolean; createdDate: number }, index: number) => (!el.crucial));
         elementsNoCrucial.sort((checkA, checkB) => (checkA.createdDate - checkB.createdDate));
         const elementsFilter = elementsCrucial.concat(elementsNoCrucial);
 
@@ -182,9 +186,12 @@ const TodoList: React.FC = () => {
             
             <TodoInput
                 addItemElement={addElement}
-                addNewElement={newElements}
-                creatNewElement={setNewElements}
                 addNewItemsElement={addElement}
+                addNewElement={newElements}
+                addNewTitleElement={newTitleElements}
+                addTitleElement={setNewTitleElements}
+                creatNewTitleElement={setNewTitleElements}
+                creatNewElement={setNewElements}
                 removeElements={removeAllElements}
                 />
         </div>

@@ -5,6 +5,7 @@ interface TodoItemsProps {
     index:number;
     showElement: {
         text: string,
+        title: string,
         done: boolean,
         crucial: boolean,
         createdDate: number,
@@ -47,9 +48,14 @@ const TodoItem = ({index, showElement, check, totalElements, changeCrucialElemen
                     >
                     <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
-                    <span className={showElement.done ? "text-green-dark transition-colors text-sm" : "transition-colors text-sm text-gray-800" }>
+
+                    <h3 className={showElement.done ? "text-green-dark transition-colors text-lg" : "transition-colors text-lg text-gray-800" }>
+                        {showElement.title}
+                    </h3>
+                    
+                    <p className={showElement.done ? "text-green-dark " : " text-gray-800" + " mt-2 transition-colors text-sm"}>
                         {showElement.text}
-                    </span>
+                    </p>
                 </div>
 
                 <div className='flex flex-row items-center absolute right-0 top-3.5'>

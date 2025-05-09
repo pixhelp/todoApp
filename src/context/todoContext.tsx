@@ -3,6 +3,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 
 interface Todo {
     text: string;
+    title: string;
     done: boolean;
     crucial: boolean;
     createdDate: number;

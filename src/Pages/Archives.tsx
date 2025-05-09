@@ -25,6 +25,9 @@ const Archives = () => {
                             (todo.done ? " bg-green-light " : " ") +
                             (todo.crucial && !todo.done ? " bg-beige-light " : "")
                         }>
+                            <h3 className="pl-3 text-green-dark text-lg font-playwrite">
+                                {todo.title}
+                            </h3>
                             <p className="pl-3 text-green-dark text-sm font-playwrite">
                                 {todo.text}
                             </p>
