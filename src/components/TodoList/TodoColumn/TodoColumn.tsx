@@ -18,20 +18,26 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
 
     return (
         <div className={"w-full " + (listShowElements.length === 0 ? "lg:w-1/2 " : "lg:w-auto")}>
-            {(listShowElements.length >= 2) && (
-                <div>
-                    <button className={"cursor-pointer text-sm lg:text-lg text-white px-1.5 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
-                        (!isOldsElementActive ? ' bg-green-dark ' : ' bg-dark-blue-light')}
-                        onClick={filterOldElements}>
-                        Anciens
-                    </button>
+           <div className="flex ">
+            <div className="flex">
+                    {(listShowElements.length >= 2) && (
+                        <div>
+                            <button className={"cursor-pointer text-sm lg:text-lg text-white px-1.5 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
+                                (!isOldsElementActive ? ' bg-green-dark ' : ' bg-dark-blue-light')}
+                                onClick={filterOldElements}>
+                                Anciens
+                            </button>
 
-                    <button className={"ml-2 cursor-pointer text-sm lg:text-lg text-white px-1.5 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
-                        (!isNewsElementActive ? ' bg-green-dark ' : ' bg-dark-blue-light')}
-                        onClick={filterNewElements}>
-                        Récents 
-                    </button>
+                            <button className={"ml-2 cursor-pointer text-sm lg:text-lg text-white px-1.5 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
+                                (!isNewsElementActive ? ' bg-green-dark ' : ' bg-dark-blue-light')}
+                                onClick={filterNewElements}>
+                                Récents 
+                            </button>
 
+                        </div>
+                    )}
+            </div>
+                <div className="flex">
                     {(hasCrucial) && (
                         <button className={"ml-2 cursor-pointer text-sm lg:text-lg text-white px-1.5 disabled:bg-gray-300 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
                             (filterCrucialOnly ? "bg-dark-blue-light " : " bg-beige-light")}
@@ -42,13 +48,13 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
 
                     {hasDone && (
                         <button className={"ml-2 cursor-pointer text-sm lg:text-lg text-white disabled:bg-gray-300 px-1.5 lg:px-4 py-2 h-12 sm:h-auto mb-2 rounded-t-xl sm:rounded-b-none sm:rounded-t-xl " +
-                        (filterDoneOnly ? "bg-dark-blue-light " : " bg-green-light ")}
+                            (filterDoneOnly ? "bg-dark-blue-light " : " bg-green-light ")}
                             onClick={toggleDoneOnly}>
                             Terminées
                         </button>
                     )}
                 </div>
-            )}
+            </div>
 
             <div className="flex flex-row items-center mb-1.5">
                 <div className='relative'>

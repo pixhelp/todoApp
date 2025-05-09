@@ -11,7 +11,6 @@ const TodoList: React.FC = () => {
     const [isOldsActive, setIsOldsElements] = useState(false);
     const [isNewsActive, setIsNewsElements] = useState(false);
     const [isAllChecked, setIsAllChecked] = useState(false);
-
     const { filterDoneOnly, filterCrucialOnly } = useTodo(); 
 
     const addElement = () => {
@@ -26,11 +25,6 @@ const TodoList: React.FC = () => {
             setTodos([...todos, todoElement]);
             setNewElements('');
         }
-    }
-
-    const removeElement = (indexArray: number) => {
-        const filterTodo = todos.filter((_el, index) => indexArray != index);
-        setTodos(filterTodo);
     }
     
     const removeAllElements = () => {
@@ -163,7 +157,6 @@ const TodoList: React.FC = () => {
                 index={index}
                 showElement={el}
                 check={isChecked}
-                remove={() => removeElement(index)}
                 totalElements={todos.length}
                 changeCrucialElements={crucialElments}
                 sortCrucialElementFilter={sortCrucialElement}

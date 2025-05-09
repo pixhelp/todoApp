@@ -9,8 +9,8 @@ interface MobileMenuToggleProps {
 const MobileMenu = ({isMenuVisible, closeMenuMobile}:MobileMenuToggleProps) => {
     return (
         <div className={
-                "h-full z-10 w-full duration-200 ease-in text-gray-800 transition-all bg-light-gray absolute " +
-                (isMenuVisible ? "left-0" : "left-96 opacity-0 w-0 h-0 overflow-hidden")}>
+                "z-10 w-full duration-200 ease-in text-gray-800 transition-all bg-light-gray absolute " +
+                (isMenuVisible ? "h-full left-0" : "left-96 opacity-0 w-0 h-0 overflow-hidden")}>
             <div className="flex text-gray-800 flex-col items-center justify-center">
                 <MenuLink 
                     closeMenuMobile={closeMenuMobile}

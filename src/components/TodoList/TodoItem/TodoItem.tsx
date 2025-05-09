@@ -9,17 +9,19 @@ interface TodoItemsProps {
         crucial: boolean,
         createdDate: number,
     }
+
     check:(event: React.ChangeEvent<HTMLInputElement>) => void;
-    remove:(index: number) => void;
     totalElements: number;
     changeCrucialElements: (indexElement: number) => void;
     sortCrucialElementFilter: (event:React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TodoItem = ({index, showElement, check, remove, totalElements, changeCrucialElements, sortCrucialElementFilter}: TodoItemsProps) => {
+
+const TodoItem = ({index, showElement, check, totalElements, changeCrucialElements, sortCrucialElementFilter}: TodoItemsProps) => {
     const createdDate = showElement.createdDate; 
     const now = Date.now();
     const diffInSeconds = Math.floor((now - createdDate) / 1000);
+
     
     let value: number;
     let unit: "second" | "minute" | "hour" | "day";
@@ -40,6 +42,8 @@ const TodoItem = ({index, showElement, check, remove, totalElements, changeCruci
     
     const formatter = new Intl.RelativeTimeFormat("fr", { numeric: "auto" });
     const relativeDate = formatter.format(value, unit); 
+    const { filterDoneOnly, setFilterDoneOnly } = useTodo();
+    const { removeElement } = useTodo();
 
     return (
         <div className={
@@ -56,14 +60,14 @@ const TodoItem = ({index, showElement, check, remove, totalElements, changeCruci
                         checked:bg-green-dark mr-2
                         disabled:border-steel-400 disabled:bg-steel-400"/>
                     <svg
-                        className="absolute top-1.5 left-[1px] w-3 h-3 pointer-events-none hidden peer-checked:block stroke-white mt-1"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                    className="absolute top-1.5 left-[1px] w-3 h-3 pointer-events-none hidden peer-checked:block stroke-white mt-1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     >
                     <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
@@ -82,7 +86,7 @@ const TodoItem = ({index, showElement, check, remove, totalElements, changeCruci
                             <ClockAlert size={20} />
                         </span>
                     </div>
-                    <button className="ml-2 sm:ml-1 cursor-pointe" onClick={() => {remove(index)}}>
+                    <button className="ml-2 sm:ml-1 cursor-pointe" onClick={() => {removeElement(index)}}>
                         <Trash2 className="sm:border-0 rounded-full hover:text-green-dark transition-all p-0.5 text-gray-800" size={22} />
                     </button>
                 </div>
