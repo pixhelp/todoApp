@@ -20,6 +20,7 @@ interface TodoContextProps {
     removeElement: (indexArray: number) => void;
     deletedItems: Todo[];
     setDeletedItems: React.Dispatch<React.SetStateAction<Todo[]>>;
+    relativeDate: any | undefined;
 }
 
 const TodoContext = createContext<TodoContextProps | undefined>(undefined);
@@ -56,6 +57,31 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
         })
     }
 
+    const relativeDate = (createdDate:number) => {
+        const now = Date.now();
+        const diffInSeconds = Math.floor((now - createdDate) / 1000);
+    
+        let value: number;
+        let unit: "second" | "minute" | "hour" | "day";
+    
+        if (diffInSeconds < 60) {
+            value = -diffInSeconds;
+            unit = "second";
+        } else if (diffInSeconds < 3600) {
+            value = -Math.floor(diffInSeconds / 60);
+            unit = "minute";
+        } else if (diffInSeconds < 86400) {
+            value = -Math.floor(diffInSeconds / 3600);
+            unit = "hour";
+        } else {
+            value = -Math.floor(diffInSeconds / 86400);
+            unit = "day";
+        }
+    
+        const formatter = new Intl.RelativeTimeFormat("fr", { numeric: "auto" });
+        return formatter.format(value, unit);
+    };
+
     useEffect(() => {
         const savedTodos = localStorage.getItem("todoList");
         const saveDeletedTodos = localStorage.getItem("deletedItems");
@@ -78,7 +104,7 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     }, [todos, deletedItems]);
 
     return (
-        <TodoContext.Provider value={{ todos, setTodos, filterDoneOnly, filterCrucialOnly, setFilterDoneOnly, setFilterCrucialOnly, toggleDoneOnly, toogleCrucialOnly, removeElement, deletedItems, setDeletedItems }}>
+        <TodoContext.Provider value={{ todos, setTodos, filterDoneOnly, filterCrucialOnly, setFilterDoneOnly, setFilterCrucialOnly, toggleDoneOnly, toogleCrucialOnly, removeElement, deletedItems, setDeletedItems, relativeDate }}>
         {children}
         </TodoContext.Provider>
     );

@@ -18,31 +18,7 @@ interface TodoItemsProps {
 
 
 const TodoItem = ({index, showElement, check, totalElements, changeCrucialElements, sortCrucialElementFilter}: TodoItemsProps) => {
-    const createdDate = showElement.createdDate; 
-    const now = Date.now();
-    const diffInSeconds = Math.floor((now - createdDate) / 1000);
-
-    
-    let value: number;
-    let unit: "second" | "minute" | "hour" | "day";
-    
-    if (diffInSeconds < 60) {
-        value = -diffInSeconds;
-        unit = "second";
-    } else if (diffInSeconds < 3600) {
-        value = -Math.floor(diffInSeconds / 60);
-        unit = "minute";
-    } else if (diffInSeconds < 86400) {
-        value = -Math.floor(diffInSeconds / 3600);
-        unit = "hour";
-    } else {
-        value = -Math.floor(diffInSeconds / 86400);
-        unit = "day";
-    }
-    
-    const formatter = new Intl.RelativeTimeFormat("fr", { numeric: "auto" });
-    const relativeDate = formatter.format(value, unit); 
-    const { filterDoneOnly, setFilterDoneOnly } = useTodo();
+    const { relativeDate } = useTodo();
     const { removeElement } = useTodo();
 
     return (
@@ -97,7 +73,7 @@ const TodoItem = ({index, showElement, check, totalElements, changeCrucialElemen
                 ? showElement.crucial
                     ? 'Tâche urgente terminée'
                     : 'Tâche terminée'
-                : `Créé ${relativeDate}`}
+                : `Créé ${relativeDate(showElement.createdDate)}`}
                  </span>
         </div>
     )
