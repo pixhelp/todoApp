@@ -17,7 +17,7 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
     const hasCrucial = todos.some((todo => todo.crucial));
 
     return (
-        <div className={"w-full " + (listShowElements.length === 0 ? "lg:w-1/2 " : "lg:w-auto")}>
+        <div className="w-full ">
            <div className="flex ">
             <div className="flex">
                     {(listShowElements.length >= 2) && (
@@ -83,7 +83,7 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
             </div>
 
             <div className="flex w-full flex-col lg:flex-row">
-                <div className="flex flex-1 flex-col lg:flex-row w-full lg:w-auto">
+                <div className="flex flex-1 flex-col lg:flex-row w-full">
                     <div className="flex-1 text-left shadow-box-light bg-white w-full lg:w-96 m-h-96">
                         {listShowElements.length === 0 && (
                             <p className="text-center text-xl pb-6 pt-4 text-black">Commencez votre liste</p>
@@ -93,7 +93,7 @@ const TodoColumn = ({listShowElements, isOldsElementActive, isNewsElementActive,
                 </div>
 
                 {listShowElements.length > 10 && (
-                    <div className="flex flex-1 flex-col lg:ml-4 lg:flex-row w-full lg:w-auto">
+                    <div className="flex flex-1 flex-col lg:ml-4 lg:flex-row w-full">
                         <div className="flex-1 text-left shadow-box-light bg-white w-full lg:w-96 m-h-96">
                             {listShowElements.slice(10)}
                         </div>

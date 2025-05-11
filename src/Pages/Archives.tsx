@@ -8,7 +8,7 @@ const Archives = () => {
 
     return (
         <div className="flex flex-col items-center justify-center py-6 bg-gray-100 px-4 sm:px-20 w-full">
-            <h1 className="text-2xl font-bold mb-4 text-gray-800 font-monserrat_medium">Mes archives</h1>
+            <h3 className="text-2xl font-bold mb-4 text-gray-800 font-monserrat_medium">Mes archives</h3>
 
             {deletedItems.length === 0 && (
                 <div>

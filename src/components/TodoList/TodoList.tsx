@@ -172,7 +172,7 @@ const TodoList: React.FC = () => {
         <div>
             <div className="px-4 sm:px-20 py-5 flex flex-col items-center w-full">
                 <div className={"flex flex-col items-center w-full "
-                    + ((todos.length > 10 ? 'xl:w-auto' : '') + (todos.length <= 10 ? 'w-1/2' : '')) }>
+                    + ((todos.length > 10 ? 'xl:w-full' : ''))}>
                     <TodoColumn
                         isAllCheckedElements={checkAllElements}
                         isOldsElementActive={isOldsActive}
