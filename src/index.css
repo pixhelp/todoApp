@@ -2,6 +2,11 @@ body {
   background-color: #FBFBFB;
 }
 
+:root {
+  --color-bg: #FBFBFB;
+  --color-text: #333333;
+}
+
 @font-face {
   font-family: 'Playwrite';
   src: url('./assets/fonts/playwrite/PlaywriteRO-VariableFont_wght.ttf') format('truetype');

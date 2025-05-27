@@ -20,6 +20,7 @@ interface TodoContextProps {
     toggleDoneOnly: () => void;
     removeElement: (indexArray: number) => void;
     deletedItems: Todo[];
+    historyItems: Todo[];
     setDeletedItems: React.Dispatch<React.SetStateAction<Todo[]>>;
     relativeDate: any | undefined;
 }
@@ -31,6 +32,7 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     const [filterDoneOnly, setFilterDoneOnly] = useState(false);
     const [filterCrucialOnly, setFilterCrucialOnly] = useState(false);
     const [deletedItems, setDeletedItems] = useState<any | undefined>([]);
+    const [historyItems, setHistoryItems] = useState<any | undefined>([]);
 
     const toggleDoneOnly = () =>(
         setFilterDoneOnly((prev) => {
@@ -44,6 +46,8 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
         if (removeElement) {
             const arrayDeleted = [...deletedItems, removeElement];
             setDeletedItems(arrayDeleted);
+            const historyTodos = [...historyItems, removeElement];
+            setHistoryItems(historyTodos);
         }
         
         const filterTodo = todos.filter((_el, index) => indexArray != index);
@@ -85,9 +89,14 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const savedTodos = localStorage.getItem("todoList");
         const saveDeletedTodos = localStorage.getItem("deletedItems");
+        const saveHistoryTodos = localStorage.getItem("historyItems");
 
         if (saveDeletedTodos) {
             setDeletedItems(JSON.parse(saveDeletedTodos));
+        }
+
+        if (saveHistoryTodos) {
+            setHistoryItems(JSON.parse(saveHistoryTodos));
         }
 
         if (savedTodos) {
@@ -100,10 +109,11 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         localStorage.setItem("todoList", JSON.stringify(todos));
         localStorage.setItem("deletedItems", JSON.stringify(deletedItems));
+        localStorage.setItem("historyItems", JSON.stringify(historyItems));
     }, [todos, deletedItems]);
 
     return (
-        <TodoContext.Provider value={{ todos, setTodos, filterDoneOnly, filterCrucialOnly, setFilterDoneOnly, setFilterCrucialOnly, toggleDoneOnly, toogleCrucialOnly, removeElement, deletedItems, setDeletedItems, relativeDate }}>
+        <TodoContext.Provider value={{ todos, setTodos, filterDoneOnly, filterCrucialOnly, setFilterDoneOnly, setFilterCrucialOnly, toggleDoneOnly, toogleCrucialOnly, removeElement, deletedItems, setDeletedItems, relativeDate, historyItems }}>
         {children}
         </TodoContext.Provider>
     );

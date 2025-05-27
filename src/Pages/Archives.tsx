@@ -2,11 +2,9 @@ import { useTodo } from "../context/todoContext";
 import { Clock, Trash2 } from 'lucide-react';
 
 const Archives = () => {
-    const { deletedItems, relativeDate, setDeletedItems } = useTodo(); 
-
+    const { deletedItems, relativeDate, setDeletedItems } = useTodo();
 
     const deleteArchivedElements = (indexElement: number) => {
-        const findElement = deletedItems.find((el, index) =>  indexElement == index);
         const filterTodo = deletedItems.filter((_el, index) => indexElement != index);
         setDeletedItems(filterTodo);
     }
