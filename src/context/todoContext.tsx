@@ -40,13 +40,12 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     ) 
 
     const removeElement = (indexArray: number) => {
-        const removeElement = todos.find((el, index) => indexArray == index);
+        const removeElement = todos.find((el, index) => indexArray == index);;
         if (removeElement) {
             const arrayDeleted = [...deletedItems, removeElement];
-            console.log(arrayDeleted);
             setDeletedItems(arrayDeleted);
         }
-
+        
         const filterTodo = todos.filter((_el, index) => indexArray != index);
         setTodos(filterTodo);
     }
@@ -87,7 +86,6 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
         const savedTodos = localStorage.getItem("todoList");
         const saveDeletedTodos = localStorage.getItem("deletedItems");
 
-        console.log(saveDeletedTodos);  
         if (saveDeletedTodos) {
             setDeletedItems(JSON.parse(saveDeletedTodos));
         }

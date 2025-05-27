@@ -1,10 +1,16 @@
 import { useTodo } from "../context/todoContext";
-import { Clock } from 'lucide-react';
+import { Clock, Trash2 } from 'lucide-react';
 
 const Archives = () => {
-    const { deletedItems } = useTodo(); 
-    const { relativeDate } = useTodo();
-    console.log(deletedItems);
+    const { deletedItems, relativeDate, setDeletedItems } = useTodo(); 
+
+
+    const deleteArchivedElements = (indexElement: number) => {
+        const findElement = deletedItems.find((el, index) =>  indexElement == index);
+        const filterTodo = deletedItems.filter((_el, index) => indexElement != index);
+        setDeletedItems(filterTodo);
+    }
+
 
     return (
         <div className="flex flex-col items-center justify-center py-6 bg-gray-100 px-4 sm:px-20 w-full">
@@ -25,6 +31,7 @@ const Archives = () => {
                             (todo.done ? " bg-green-light " : " ") +
                             (todo.crucial && !todo.done ? " bg-beige-light " : "")
                         }>
+                            <p className="flex justify-end items-end text-xs cursor-pointer sm:border-0 rounded-full hover:text-green-dark transition-all p-0.5 text-gray-800" onClick={() => { deleteArchivedElements(index) }}><Trash2 size={15} /></p>
                             <h3 className="pl-3 text-green-dark text-lg font-playwrite">
                                 {todo.title}
                             </h3>
