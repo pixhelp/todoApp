@@ -23,6 +23,7 @@ interface TodoContextProps {
     historyItems: Todo[];
     setDeletedItems: React.Dispatch<React.SetStateAction<Todo[]>>;
     relativeDate: any | undefined;
+    doneTask: () => Array<Todo>;
 }
 
 const TodoContext = createContext<TodoContextProps | undefined>(undefined);
@@ -53,6 +54,15 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
         const filterTodo = todos.filter((_el, index) => indexArray != index);
         setTodos(filterTodo);
     }
+
+    const doneTask = () => {
+        const doneTaskTodo = todos.filter((el) => el.done === true);
+        const doneTaskDeleted = deletedItems.filter((el:any) => el.done === true);
+        const doneTask = [...doneTaskTodo, ...doneTaskDeleted];
+
+        return doneTask;
+    }
+
 
     const toogleCrucialOnly = () => {
         setFilterCrucialOnly((prev) => {
@@ -113,7 +123,7 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     }, [todos, deletedItems]);
 
     return (
-        <TodoContext.Provider value={{ todos, setTodos, filterDoneOnly, filterCrucialOnly, setFilterDoneOnly, setFilterCrucialOnly, toggleDoneOnly, toogleCrucialOnly, removeElement, deletedItems, setDeletedItems, relativeDate, historyItems }}>
+        <TodoContext.Provider value={{ doneTask, todos, setTodos, filterDoneOnly, filterCrucialOnly, setFilterDoneOnly, setFilterCrucialOnly, toggleDoneOnly, toogleCrucialOnly, removeElement, deletedItems, setDeletedItems, relativeDate, historyItems }}>
         {children}
         </TodoContext.Provider>
     );

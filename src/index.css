@@ -5,6 +5,7 @@ body {
 :root {
   --color-bg-light: #FBFBFB;
   --color-text: #556B2F;
+  --color-bg-light-blue: #4682B4;
 }
 
 @font-face {
