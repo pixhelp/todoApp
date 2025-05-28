@@ -1,14 +1,8 @@
 import { useTodo } from "../context/todoContext";
-import { Clock, Trash2 } from 'lucide-react';
+import CardTodo from "../components/CardTodo";
 
 const Archives = () => {
-    const { deletedItems, relativeDate, setDeletedItems } = useTodo();
-
-    const deleteArchivedElements = (indexElement: number) => {
-        const filterTodo = deletedItems.filter((_el, index) => indexElement != index);
-        setDeletedItems(filterTodo);
-    }
-
+    const { deletedItems } = useTodo();
 
     return (
         <div className="flex flex-col items-center justify-center py-6 bg-gray-100 px-4 sm:px-20 w-full">
@@ -22,31 +16,11 @@ const Archives = () => {
                 </div>
             )}
             
-            {deletedItems.length > 0 && (
-                <div className="bg-white text-gray-800 rounded shadow-md w-full max-w-md">
-                    {deletedItems.map((todo, index) => (
-                        <div key={index} className={" p-2 border-b border-gray-300" +
-                            (todo.done ? " bg-green-light " : " ") +
-                            (todo.crucial && !todo.done ? " bg-beige-light " : "")
-                        }>
-                            <p className="flex justify-end items-end text-xs cursor-pointer sm:border-0 rounded-full hover:text-green-dark transition-all p-0.5 text-gray-800" onClick={() => { deleteArchivedElements(index) }}><Trash2 size={15} /></p>
-                            <h3 className="pl-3 text-green-dark text-lg font-playwrite">
-                                {todo.title}
-                            </h3>
-                            <p className="pl-3 text-green-dark text-sm font-playwrite">
-                                {todo.text}
-                            </p>
-                            <span className='py-2 pl-2 text-xs mt-2 text-dark-blue font-monserrat_medium flex flex-row items-center'>
-                                <Clock className='mr-1' size={15} />
-                                {todo.done
-                                ? todo.crucial
-                                    ? 'Tâche urgente terminée'
-                                    : 'Tâche terminée'
-                                : `Créé ${relativeDate(todo.createdDate)}`}
-                            </span>
-                        </div>
-                    ))}
-                </div>
+            {deletedItems.length >= 1 && (
+                <CardTodo 
+                todoItems={deletedItems}
+                deleted={true}
+                ></CardTodo>
             )}
         </div>
     )

@@ -40,7 +40,9 @@ function App() {
 
   return (
     <div>
-      <Header mobileMenuShowHide={mobileMenuToggle}/>
+      <Header 
+        mobileMenuShowHide={mobileMenuToggle}
+        isActiveMenuMobile={isMobileMenuVisible}/>
       <Menu/>
       <MobileMenu
         closeMenuMobile={closeMenu}
