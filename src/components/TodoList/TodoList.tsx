@@ -24,7 +24,7 @@ const TodoList: React.FC = () => {
                 createdDate: Date.now(),
             }
 
-            setTodos([...todos, todoElement]);
+            setTodos([todoElement, ...todos]);
             setNewElements('');
             setNewTitleElements('');
         }

@@ -12,8 +12,8 @@ interface TodoInputProps {
 
 const TodoInput = ({addItemElement,addNewTitleElement, creatNewTitleElement, addNewItemsElement, addNewElement, creatNewElement, removeElements}:TodoInputProps) => {
     return (
-        <div className="w-full sticky flex flex-col top-0 lg:py-0 bottom-0 px-4 mx-auto sm:px-20 py-6 lg:px-0 lg:items-center lg:w-1/2 lg:relative bg-white lg:bg-transparent">
-            <div className="lg:my-4 sm:p-0 flex flex-col lg:w-full">
+        <div className="w-full sticky flex flex-col top-0 lg:py-0 bottom-0 px-4 mx-auto sm:px-20 py-6 lg:px-0 lg:items-center bg-white">
+            <div className="lg:my-4 sm:p-0 flex flex-col lg:w-1/2">
                 <input 
                     type="text" 
                     className="h-20 border w-full flex-1 p-2 rounded-lg" 
