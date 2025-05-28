@@ -7,19 +7,21 @@ const Home = () => {
 
     return (
         <>
-            <BannerHome/>
-            <div className="text-center py-8 lg:pb-16 lg:py-0 mx-4">
-                <div className="w-full py-4 lg:py-8">
-                    <h1 className="w-full p-2 text-2xl">
+            <div className="relative">
+                <BannerHome/>   
+                <div className="w-full flex flex-col justify-center items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <h1 className="w-full text-white p-2 text-2xl">
                         {todos.length <= 0 && (
                             "Bienvenue sur mytodo"
                         )}
                     </h1>
-                    <div className="mt-4">
+                    <div>
                         <SimpleButton text={(todos.length > 0 ? `Continuer mes ${todos.length} tâches en cours` : "Démarrer une nouvelle tâche")}/>
                     </div>
                 </div>
+            </div>
                 
+            <div className="text-center py-8 lg:pb-16 lg:py-0 mx-4 lg:mx-0">
                 <div className="flex flex-col lg:flex-row justify-center mt-4">
                     <TodoStatsCard
                     statsCard={todos.length}
