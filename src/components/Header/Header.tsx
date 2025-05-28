@@ -14,11 +14,11 @@ const Header = ({mobileMenuShowHide, isActiveMenuMobile}: MobileMenuToggleProps)
             <Link className="flex flex-row items-center justify-center" to={"/"}>
                 My todo
             </Link>
-           
-           <Icon className="ml-auto" size={30} strokeWidth={2} onClick={mobileMenuShowHide} />
-
-
+            <div className="block lg:hidden ml-auto">
+                <Icon size={30} strokeWidth={2} onClick={mobileMenuShowHide} />
+            </div>
         </div>
+
     )
 }
 
