@@ -105,7 +105,7 @@ const TodoColumn = ({
             </div>
 
             <div className="ml-auto w-full lg:w-1/3 my-4 lg:my-0">
-            <SearchTodo searchTodos={searchInput} setSearch={setSearch} />
+                <SearchTodo searchTodos={searchInput} setSearch={setSearch} />
             </div>
         </div>
 
@@ -138,22 +138,23 @@ const TodoColumn = ({
 
         <div className="flex w-full flex-col lg:flex-row">
             <div className="flex flex-1 flex-col lg:flex-row w-full">
-            <div className="flex-1 text-left shadow-box-light bg-white w-full lg:w-96 m-h-96">
-                {sortedTodos.length === 0 && (
-                <p className="text-center text-xl pb-6 pt-4 text-black">Commencez votre liste</p>
-                )}
-                {sortedTodos.map((todo, index) => (
-                <TodoItem
-                    key={index}
-                    index={index}
-                    showElement={todo}
-                    check={check}
-                    totalElements={todos.length}
-                    changeCrucialElements={changeCrucialElements}
-                    sortCrucialElementFilter={sortCrucialElementFilter}
-                />
-                ))}
-            </div>
+                <div className="flex-1 text-left shadow-box-light bg-white w-full lg:w-96 m-h-96">
+                    {sortedTodos.length === 0 && (
+                        <p className="text-center text-xl pb-6 pt-4 text-black">Commencez votre liste</p>
+                    )}
+
+                    {sortedTodos.map((todo, index) => (
+                        <TodoItem
+                            key={index}
+                            index={index}
+                            showElement={todo}
+                            check={check}
+                            totalElements={todos.length}
+                            changeCrucialElements={changeCrucialElements}
+                            sortCrucialElementFilter={sortCrucialElementFilter}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     </div>
