@@ -5,25 +5,46 @@ interface MobileMenuToggleProps {
     closeMenuMobile: () => void;
 }
 
-
 const MobileMenu = ({isMenuVisible, closeMenuMobile}:MobileMenuToggleProps) => {
+
+    const menuLink = [
+      {
+        LinkMenu: "/my-todo-list",
+        Text: "Ma todo liste"
+      },
+      {
+        LinkMenu: "/Historique",
+        Text: "Historique"
+      },
+      {
+        LinkMenu: "/Finished",
+        Text: "Terminées"
+      },
+      {
+        LinkMenu: "/Archives",
+        Text: "Archivées"
+      },
+      {
+        LinkMenu: "/Historique",
+        Text: "Historique"
+      }
+
+    ];
+
+
     return (
         <div className={
                 "z-10 w-full duration-200 ease-in text-gray-800 transition-all bg-light-gray absolute " +
                 (isMenuVisible ? "h-full left-0" : "left-96 opacity-0 w-0 h-0 overflow-hidden")}>
             <div className="flex text-gray-800 flex-col items-center justify-center">
-                <MenuLink 
-                    closeMenuMobile={closeMenuMobile}
-                    LinkMenu="/my-todo-list"
-                    Text="Liste de taches"/>
-                 <MenuLink 
-                    closeMenuMobile={closeMenuMobile}
-                    LinkMenu="/Historique"
-                    Text="Historique" />
-                 <MenuLink 
-                    closeMenuMobile={closeMenuMobile}
-                    LinkMenu="/Archives"
-                    Text="Archivées" />
+                {menuLink.map((link, index) => (
+                    <MenuLink 
+                        key= {index}
+                        LinkMenu={link.LinkMenu}
+                        Text={link.Text}
+                        closeMenuMobile={closeMenuMobile}
+                    />
+                ))}
             </div>
         </div>
     )

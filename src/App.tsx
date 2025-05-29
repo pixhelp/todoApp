@@ -5,7 +5,7 @@ import Menu from "./components/Menu/Menu";
 import MobileMenu from "./components/Menu/MobileMenu"
 import Main from './components/Main/Main';
 import Footer from './components/Footer/Footer';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);

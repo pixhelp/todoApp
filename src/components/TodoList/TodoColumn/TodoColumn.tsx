@@ -104,7 +104,7 @@ const TodoColumn = ({
                 </div>
             </div>
 
-            <div className="ml-auto w-full lg:w-auto my-4 lg:my-0">
+            <div className="ml-auto w-full lg:w-1/3 my-4 lg:my-0">
             <SearchTodo searchTodos={searchInput} setSearch={setSearch} />
             </div>
         </div>

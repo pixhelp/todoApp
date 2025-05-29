@@ -15,7 +15,7 @@ const SearchTodo = ({searchTodos, setSearch}: {searchTodos: string, setSearch: R
                 value={searchTodos}
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder="Rechercher une tâche"
-                className="w-full pl-10 pr-4 py-1 h-12 lg:h-auto border rounded-xl border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="w-full pl-10 pr-4 py-1 h-12 lg:h-auto border rounded-xl border-gray-300 focus:outline-none focus:ring-1 focus:ring-green-500"
             />
         </div>
     )
