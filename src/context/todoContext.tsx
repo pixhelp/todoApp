@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-interface Todo {
+export interface Todo {
     text: string;
     title: string;
     done: boolean;
